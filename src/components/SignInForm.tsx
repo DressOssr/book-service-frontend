@@ -3,7 +3,7 @@ import {FormEventHandler, useEffect, useRef, useState} from "react";
 import {useAppDispatch} from "../app/hooks.ts";
 import {useLoginMutation} from "../features/auth/authApiSlice.ts";
 import {setCredentials} from "../features/auth/authSlice.ts";
-import Spiner from "./UI/Spiner.tsx";
+import Spinner from "./UI/Spinner.tsx";
 
 const SignInForm = () => {
         const [email, setEmail] = useState("");
@@ -38,7 +38,7 @@ const SignInForm = () => {
         return (
             <>
                 {isLoading
-                    ? <div className="flex justify-center"><Spiner/></div>
+                    ? <div className="flex justify-center"><Spinner/></div>
                     :
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <h1

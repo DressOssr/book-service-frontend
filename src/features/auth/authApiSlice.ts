@@ -1,6 +1,7 @@
 import {apiSlice} from "../../app/api/apiSlice.ts";
 import {IAuth} from "../../model/IAuth.ts";
 import {ISignIn} from "../../model/SignIn.ts";
+import {ISignUp} from "../../model/ISignUp.ts";
 
 
 export const authApiSlice = apiSlice.injectEndpoints({
@@ -11,8 +12,15 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 method:'POST',
                 body:{...credentials}
             })
+        }),
+        register:builder.mutation<IAuth,ISignUp>({
+            query:credentials=>({
+                url: 'auth/signup',
+                method:'POST',
+                body:{...credentials}
+            })
         })
     })
 })
 
-export const {useLoginMutation} = authApiSlice
+export const {useLoginMutation,useRegisterMutation} = authApiSlice

@@ -1,4 +1,4 @@
-const Test = () => {
+const Admin = () => {
     return (
         <div>
             TEST
@@ -6,4 +6,4 @@ const Test = () => {
     );
 };
 
-export default Test;
+export default Admin;

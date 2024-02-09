@@ -7,6 +7,7 @@ import NoPage from "./NoPage.tsx";
 import SignInForm from "./SignInForm.tsx";
 import SignUpForm from "./SignUpForm.tsx";
 import PrivateRoute from "../route/PrivateRoute.tsx";
+import Admin from "../pages/Admin.tsx";
 
 const AppRouter: FC = () => {
     return (
@@ -15,10 +16,9 @@ const AppRouter: FC = () => {
                 <Route path="/" element={<Layout/>}>
                     <Route index element={<Home/>}/>
                     <Route path="login" element={<Auth><SignInForm/></Auth>}/>
-                    <Route path="*" element={<NoPage/>}/>
                     <Route path="register" element={<Auth><SignUpForm/></Auth>}/>
                     <Route element={<PrivateRoute/>}>
-
+                        <Route path="/test" element={<Admin/>}/>
                     </Route>
                 </Route>
             </Routes>
