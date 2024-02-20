@@ -22,6 +22,8 @@ const authSlice = createSlice({
         setCredentials: (state, action: PayloadAction<IAuth>) => {
             const {user, accessToken} = action.payload
             setUser(user)
+            console.log(accessToken)
+            localStorage.setItem("token",accessToken)
             state.user = user
             state.accessToken = accessToken
             state.auth = true

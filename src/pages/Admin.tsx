@@ -1,8 +1,10 @@
+import AddBook from "../components/AddBookForm.tsx";
+
 const Admin = () => {
     return (
-        <div>
-            TEST
-        </div>
+        <>
+            <AddBook/>
+        </>
     );
 };
 

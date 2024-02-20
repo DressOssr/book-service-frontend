@@ -9,7 +9,7 @@ const baseQuery = fetchBaseQuery({
     credentials: "include",
     prepareHeaders: (headers, {getState}) => {
         const state = getState() as RootState
-        const token = state.auth.accessToken
+        const token = localStorage.getItem("token")
         if (token) {
             headers.set("Authorization", `Bearer ${token}`);
         }
@@ -20,10 +20,9 @@ const baseQuery = fetchBaseQuery({
 // @ts-ignore
 const baseQueryWithReAuth = async (args, api, extraOption) => {
     let result = await baseQuery(args, api, extraOption);
-    // @ts-ignore
-    if (result?.error?.originalStatus === 401) {
+    if (result?.error?.status === 401) {
         console.log("sending refresh token")
-        const refreshResult = await baseQuery("/refresh", api, extraOption);
+        const refreshResult = await baseQuery("/auth/refresh", api, extraOption);
         console.log(refreshResult);
         if (refreshResult?.data) {
             const user:IUser = api.getState().auth.user;
@@ -31,6 +30,7 @@ const baseQueryWithReAuth = async (args, api, extraOption) => {
             result = await baseQuery(args, api, extraOption);
         } else {
             api.dispatch(logOut())
+            localStorage.removeItem("token")
         }
     }
     return result;

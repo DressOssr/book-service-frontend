@@ -12,18 +12,18 @@ import Admin from "../pages/Admin.tsx";
 const AppRouter: FC = () => {
     return (
         <>
-            <Routes>
-                <Route path="/" element={<Layout/>}>
-                    <Route index element={<Home/>}/>
-                    <Route path="login" element={<Auth><SignInForm/></Auth>}/>
-                    <Route path="register" element={<Auth><SignUpForm/></Auth>}/>
-                    <Route element={<PrivateRoute/>}>
-                        <Route path="/test" element={<Admin/>}/>
-                    </Route>
-                </Route>
-            </Routes>
-        </>
-    );
+<Routes>
+    <Route path="/" element={<Layout/>}>
+        <Route index element={<Home/>}/>
+        <Route path="login" element={<Auth><SignInForm/></Auth>}/>
+        <Route path="register" element={<Auth><SignUpForm/></Auth>}/>
+        <Route element={<PrivateRoute/>}>
+            <Route path="/admin" element={<Admin/>}/>
+        </Route>
+    </Route>
+</Routes>
+</>
+);
 };
 
 export default AppRouter;
