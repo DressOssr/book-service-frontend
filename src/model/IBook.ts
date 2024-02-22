@@ -6,6 +6,6 @@ export interface IBook {
     description: string
     image: string
     publisher: string
-    authorsId: number[]
-    categoriesId: number[]
+    authorsId: string[]
+    categoriesId: string[]
 }

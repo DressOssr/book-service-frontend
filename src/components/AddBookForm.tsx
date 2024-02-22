@@ -1,17 +1,29 @@
-import React, {FormEvent, useState} from 'react';
+import React, {FC, FormEvent, useState} from 'react';
 import {useAppDispatch} from "../app/hooks.ts";
-import {useLoginMutation} from "../features/auth/authApiSlice.ts";
 import {useCreateMutation} from "../features/admin/adminApiSlice.ts";
-import {json} from "react-router";
-import {IBook} from "../model/IBook.ts";
+import Select from "react-select";
+import {IOptions} from "../model/IOptions.ts";
 
-const AddBook = () => {
+
+interface AddBookFromProps{
+    categories:IOptions[]
+    authors:IOptions[]
+}
+
+const AddBookFrom:FC<AddBookFromProps> = ({categories,authors}) => {
+
     const dispatch = useAppDispatch();
     const [create, {isLoading}] = useCreateMutation()
+
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
             const formData = new FormData(event.currentTarget)
+            let object:any = {};
+            formData.forEach(function(value, key){
+                object[key] = value;
+            });
+            console.log(JSON.stringify(object))
             await create(formData)
         } catch (e) {
             console.log(e)
@@ -109,28 +121,25 @@ const AddBook = () => {
                     <label htmlFor="authorsId" className="block mb-2 text-sm font-medium text-gray-900">
                         Author IDs (comma-separated):
                     </label>
-                    <input
-                        type="text"
-                        id="authorsId"
+                    <Select
+                        isMulti
                         name="authorsId"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        placeholder="Author IDs"
-
+                        options={authors}
+                        className="basic-multi-select"
                     />
                 </div>
 
                 <div className="mb-5">
                     <label htmlFor="categoriesId" className="block mb-2 text-sm font-medium text-gray-900">
-                        Category IDs (comma-separated):
+                        Categories:
                     </label>
-                    <input
-                        type="text"
-                        id="categoriesId"
+                    <Select
+                        isMulti
                         name="categoriesId"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        placeholder="Category IDs"
-
+                        options={categories}
+                        className="basic-multi-select"
                     />
+
                 </div>
                 <div className="flex p-2 justify-center">
                     <button
@@ -145,4 +154,4 @@ const AddBook = () => {
     );
 };
 
-export default AddBook;
+export default AddBookFrom;

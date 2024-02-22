@@ -15,7 +15,6 @@ type TProps = {
 const PrivateRoute: FC<TProps> = () => {
     const token =localStorage.getItem("token");
     const location = useLocation();
-    console.log(token)
     // if (!token) {
     //     return <Navigate to={redirectPath} replace={true}/>;
     // }
