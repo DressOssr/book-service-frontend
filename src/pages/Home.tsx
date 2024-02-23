@@ -1,7 +1,10 @@
+import {useGetBooksQuery} from "../features/book/bookApiSlice.ts";
+
 const Home = () => {
+    const {data, error} = useGetBooksQuery()
     return (
         <>
-          Home
+            {JSON.stringify(data)}
         </>
     );
 };

@@ -19,12 +19,9 @@ const AddBookFrom:FC<AddBookFromProps> = ({categories,authors}) => {
         event.preventDefault();
         try {
             const formData = new FormData(event.currentTarget)
-            let object:any = {};
-            formData.forEach(function(value, key){
-                object[key] = value;
-            });
-            console.log(JSON.stringify(object))
-            await create(formData)
+
+            const book = await create(formData)
+            console.log(book)
         } catch (e) {
             console.log(e)
         }
@@ -128,7 +125,6 @@ const AddBookFrom:FC<AddBookFromProps> = ({categories,authors}) => {
                         className="basic-multi-select"
                     />
                 </div>
-
                 <div className="mb-5">
                     <label htmlFor="categoriesId" className="block mb-2 text-sm font-medium text-gray-900">
                         Categories:
