@@ -4,8 +4,8 @@ import Auth from "../pages/Auth.tsx";
 import {FC} from "react";
 import Layout from "./Layout.tsx";
 import NoPage from "./NoPage.tsx";
-import SignInForm from "./SignInForm.tsx";
-import SignUpForm from "./SignUpForm.tsx";
+import SignInForm from "./Forms/SignInForm.tsx";
+import SignUpForm from "./Forms/SignUpForm.tsx";
 import PrivateRoute from "../route/PrivateRoute.tsx";
 import Admin from "../pages/Admin.tsx";
 

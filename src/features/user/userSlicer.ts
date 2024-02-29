@@ -30,4 +30,4 @@ const userSlice = createSlice({
 
 export const {setUser, clearState} = userSlice.actions
 export default userSlice.reducer
-export const selectCurrentUser = (state:RootState) => state.auth.user
+export const selectCurrentUser = (state:RootState) => state.auth

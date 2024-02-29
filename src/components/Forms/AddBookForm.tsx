@@ -1,8 +1,10 @@
 import React, {FC, FormEvent, useState} from 'react';
-import {useAppDispatch} from "../app/hooks.ts";
-import {useCreateMutation} from "../features/admin/adminApiSlice.ts";
+import {useAppDispatch} from "../../app/hooks.ts";
+import {useCreateBookMutation} from "../../features/admin/adminApiSlice.ts";
 import Select from "react-select";
-import {IOptions} from "../model/IOptions.ts";
+import {IOptions} from "../../model/IOptions.ts";
+import ModalAddAuthor from "../UI/Modal/ModalAddAuthor.tsx";
+import ModalAddCategory from "../UI/Modal/ModalAddCategory.tsx";
 
 
 interface AddBookFromProps{
@@ -13,8 +15,9 @@ interface AddBookFromProps{
 const AddBookFrom:FC<AddBookFromProps> = ({categories,authors}) => {
 
     const dispatch = useAppDispatch();
-    const [create, {isLoading}] = useCreateMutation()
-
+    const [create, {isLoading}] = useCreateBookMutation()
+    const [isShowAuthorModal, setIsShowAuthorModal] = useState<boolean>(false);
+    const [isShowCategoryModal, setIsShowCategoryModal] = useState<boolean>(false);
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
@@ -26,6 +29,12 @@ const AddBookFrom:FC<AddBookFromProps> = ({categories,authors}) => {
             console.log(e)
         }
 
+    }
+    const toggleAuthorModal = () => {
+        setIsShowAuthorModal(!isShowAuthorModal);
+    }
+    const toggleCategoryModal = () => {
+        setIsShowCategoryModal(!isShowCategoryModal);
     }
     return (
         <>
@@ -115,8 +124,8 @@ const AddBookFrom:FC<AddBookFromProps> = ({categories,authors}) => {
                 </div>
 
                 <div className="mb-5">
-                    <label htmlFor="authorsId" className="block mb-2 text-sm font-medium text-gray-900">
-                        Author IDs (comma-separated):
+                    <label htmlFor="authorsId" className="inline mb-2 text-sm font-medium text-gray-900">
+                        Author:
                     </label>
                     <Select
                         isMulti
@@ -124,6 +133,11 @@ const AddBookFrom:FC<AddBookFromProps> = ({categories,authors}) => {
                         options={authors}
                         className="basic-multi-select"
                     />
+                    <small className="text-blue-300 hover:underline-offset-1 hover:cursor-pointer"
+                            onClick={toggleAuthorModal}
+                    >
+                        Add Author....
+                    </small>
                 </div>
                 <div className="mb-5">
                     <label htmlFor="categoriesId" className="block mb-2 text-sm font-medium text-gray-900">
@@ -135,7 +149,11 @@ const AddBookFrom:FC<AddBookFromProps> = ({categories,authors}) => {
                         options={categories}
                         className="basic-multi-select"
                     />
-
+                    <small className="text-blue-300 hover:underline-offset-1 hover:cursor-pointer"
+                           onClick={toggleCategoryModal}
+                    >
+                        Add Category....
+                    </small>
                 </div>
                 <div className="flex p-2 justify-center">
                     <button
@@ -146,6 +164,8 @@ const AddBookFrom:FC<AddBookFromProps> = ({categories,authors}) => {
                 </div>
 
             </form>
+            <ModalAddAuthor onClose={toggleAuthorModal} title="Add Author" isOpen={isShowAuthorModal}/>
+            <ModalAddCategory onClose={toggleCategoryModal} title="Add Category" isOpen={isShowCategoryModal}/>
         </>
     );
 };

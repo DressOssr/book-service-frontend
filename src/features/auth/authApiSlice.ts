@@ -19,8 +19,17 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 method:'POST',
                 body:{...credentials}
             })
-        })
+        }),
+        refreshToken:builder.query<IAuth,void>({
+            query:()=>({
+                url:'/auth/refresh',
+                method:'GET'
+            })
+        }),
     })
 })
 
-export const {useLoginMutation,useRegisterMutation} = authApiSlice
+export const {useLoginMutation,
+    useRegisterMutation,
+    useRefreshTokenQuery,
+    useLazyRefreshTokenQuery} = authApiSlice

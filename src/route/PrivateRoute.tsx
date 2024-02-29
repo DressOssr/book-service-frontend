@@ -1,28 +1,27 @@
-import {FC, ReactNode} from "react";
+import {FC, useEffect, useState} from "react";
 import {Navigate, useLocation} from "react-router";
 import {Outlet} from "react-router-dom";
-import {useAppSelector} from "../app/hooks.ts";
-import auth from "../pages/Auth.tsx";
-import {selectCurrentAccessToken} from "../features/auth/authSlice.ts";
+import {IAuth} from "../model/IAuth.ts";
+import {useLazyRefreshTokenQuery, useRefreshTokenQuery} from "../features/auth/authApiSlice.ts";
+import {useAppDispatch} from "../app/hooks.ts";
+import {setCredentials} from "../features/auth/authSlice.ts";
+import Spinner from "../components/UI/Spinner.tsx";
 
 
-type TProps = {
-    redirectPath?: string;
-    children?: ReactNode
-}
-
-
-const PrivateRoute: FC<TProps> = () => {
-    const token =localStorage.getItem("token");
+const PrivateRoute: FC = () => {
+    const {data: token, isLoading} = useRefreshTokenQuery()
     const location = useLocation();
-    // if (!token) {
-    //     return <Navigate to={redirectPath} replace={true}/>;
-    // }
-    // return children ? children : <Outlet/>;
+    if (isLoading) {
+        return (
+            <>
+                <Spinner/>
+            </>
+        )
+    }
     return (
         token
             ? <Outlet/>
-            :  <Navigate to="login" state={{form:location}} replace={true}/>
+            : <Navigate to="login" state={{form: location}} replace={true}/>
     );
 };
 

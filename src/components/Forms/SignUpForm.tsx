@@ -1,9 +1,9 @@
 import {FC, useEffect, useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
-import {setCredentials} from "../features/auth/authSlice.ts";
-import {useAppDispatch} from "../app/hooks.ts";
-import {useRegisterMutation} from "../features/auth/authApiSlice.ts";
-import Spinner from "./UI/Spinner.tsx";
+import {setCredentials} from "../../features/auth/authSlice.ts";
+import {useAppDispatch} from "../../app/hooks.ts";
+import {useRegisterMutation} from "../../features/auth/authApiSlice.ts";
+import Spinner from "../UI/Spinner.tsx";
 
 const SignUpForm: FC = () => {
     const [email, setEmail] = useState("");

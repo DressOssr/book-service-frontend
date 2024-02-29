@@ -1,9 +1,9 @@
 import {Link} from "react-router-dom";
 import {FormEventHandler, useEffect, useRef, useState} from "react";
-import {useAppDispatch} from "../app/hooks.ts";
-import {useLoginMutation} from "../features/auth/authApiSlice.ts";
-import {setCredentials} from "../features/auth/authSlice.ts";
-import Spinner from "./UI/Spinner.tsx";
+import {useAppDispatch} from "../../app/hooks.ts";
+import {useLoginMutation} from "../../features/auth/authApiSlice.ts";
+import {setCredentials} from "../../features/auth/authSlice.ts";
+import Spinner from "../UI/Spinner.tsx";
 
 const SignInForm = () => {
         const [email, setEmail] = useState("");

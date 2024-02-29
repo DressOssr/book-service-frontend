@@ -1,8 +1,8 @@
-import AddBook from "../components/AddBookForm.tsx";
+import AddBook from "../components/Forms/AddBookForm.tsx";
 import {useGetCategoryQuery} from "../features/category/categoryApiSlice.ts";
 import {IOptions} from "../model/IOptions.ts";
 import Spinner from "../components/UI/Spinner.tsx";
-import AddBookFrom from "../components/AddBookForm.tsx";
+import AddBookFrom from "../components/Forms/AddBookForm.tsx";
 import {useGetAuthorQuery} from "../features/author/authorApiSlice.ts";
 
 const Admin = () => {
