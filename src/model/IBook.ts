@@ -11,7 +11,7 @@ export interface IBook {
     description: string
     imageId: number
     publisher: string
-    authorsId: IAuthor[]
-    categoriesId: ICategory[],
+    authors: IAuthor[]
+    categories: ICategory[],
     image:IImage
 }
