@@ -1,14 +1,15 @@
 import {Route, Routes} from "react-router";
 import Home from "../pages/Home.tsx";
 import Auth from "../pages/Auth.tsx";
-import {FC} from "react";
+import React, {FC} from "react";
 import Layout from "./Layout.tsx";
-import NoPage from "./NoPage.tsx";
 import SignInForm from "./Forms/SignInForm.tsx";
 import SignUpForm from "./Forms/SignUpForm.tsx";
 import PrivateRoute from "../route/PrivateRoute.tsx";
 import Admin from "../pages/Admin.tsx";
 import Product from "../pages/Product.tsx";
+import Cart from "../pages/Cart.tsx";
+import NoPage from "./NoPage.tsx";
 
 const AppRouter: FC = () => {
     return (
@@ -21,7 +22,9 @@ const AppRouter: FC = () => {
         <Route path="product/:id" element={<Product/>}/>
         <Route element={<PrivateRoute/>}>
             <Route path="/admin" element={<Admin/>}/>
+            <Route path="/cart" element={<Cart/>}/>
         </Route>
+        <Route path="*" element={<NoPage/>}/>
     </Route>
 </Routes>
 </>

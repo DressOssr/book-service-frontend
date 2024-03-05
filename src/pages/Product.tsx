@@ -1,15 +1,20 @@
 import React from 'react';
 import {useParams} from "react-router";
 import {useGetBookByIdQuery} from "../features/book/bookApiSlice.ts";
-import {data} from "autoprefixer";
+import {useAddToCartMutation} from "../features/cart/cartApiSlice.ts";
+import {useAppDispatch} from "../app/hooks.ts";
+import {removeFromCart} from "../features/cart/cartSlicer.ts";
 
 const Product = () => {
     const {id} = useParams();
     const {data: book, error, isLoading} = useGetBookByIdQuery(Number(id));
-    const handleAddToCart = () => {
-        console.log('Add to cart')
+    const [addToCart] = useAddToCartMutation();
+    const dispatch = useAppDispatch()
+    const  handleAddToCart = async () => {
+        const cart = await addToCart(Number(id))
+        console.log(cart)
     }
-    if (!book || isLoading){
+    if (!book || isLoading) {
         return <h1>Loading...</h1>
     }
     return (
@@ -22,9 +27,10 @@ const Product = () => {
                              alt={book.image.fileName}/>
                     </div>
                 </div>
-                <div className="md:flex-1 px-4">
+                <div className="md:flex-1 relative px-4">
                     <h2 className="text-3xl font-bold text-gray-800 ">{book.title}</h2>
-                    <small className="text-gray-600">{book.authors.map(author=>`${author.firstName} ${author.lastName} `)}</small>
+                    <small
+                        className="text-gray-600">{book.authors.map(author => `${author.firstName} ${author.lastName} `)}</small>
                     <p className="text-gray-600 text-sm mb-4">
                         {book.subtitle}
                     </p>
@@ -44,12 +50,17 @@ const Product = () => {
                             {book.description}
                         </p>
                     </div>
-                    <div className="mb-4 flex justify-center">
+                    <div className="flex justify-center">
                         <div className="w-1/2 ">
                             <button
                                 onClick={handleAddToCart}
-                                className="w-full bg-gray-900 d text-white py-2 px-4  font-bold hover:bg-gray-800 ">
+                                className=" w-full bg-gray-900 d text-white py-2 px-4 font-bold hover:bg-gray-800 ">
                                 Add to Cart
+                            </button>
+                            <button
+                                onClick={()=>{dispatch(removeFromCart())}}
+                                className=" w-full bg-gray-900 d text-white py-2 px-4 font-bold hover:bg-gray-800 ">
+                                Remove to Cart
                             </button>
                         </div>
                     </div>
