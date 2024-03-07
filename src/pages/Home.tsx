@@ -10,13 +10,14 @@ const Home = () => {
         return <h1>Loading...</h1>
     }
     return (
-        <>
+        <div className="container content-center">
             {data!.map(book => {
                 return (
-                    <Card key={book.id} image={book.image} id={book.id} title={book.title} subtitle={book.subtitle} price={book.price} />
+                        <Card key={book.id} image={book.image} id={book.id} title={book.title} subtitle={book.subtitle}
+                              price={book.price}/>
                 )
             })}
-        </>
+        </div>
     );
 };
 

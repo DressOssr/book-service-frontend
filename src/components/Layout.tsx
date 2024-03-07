@@ -1,11 +1,14 @@
 import {Outlet, Link} from "react-router-dom";
 import Dropdown from "./UI/Dropdown.tsx";
 import {useGetCountQuery} from "../features/cart/cartApiSlice.ts";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
 import {selectCount, setCartCount} from "../features/cart/cartSlicer.ts";
 import {CiShoppingCart} from "react-icons/ci";
 import {FaCartShopping} from "react-icons/fa6";
+import AddAuthorForm from "./Forms/AddAuthorForm.tsx";
+import Modal from "./UI/Modal/Modal.tsx";
+import CartBadge from "./CartBadge.tsx";
 
 const Layout = () => {
     const {data: countCart, isLoading} = useGetCountQuery();
@@ -20,9 +23,9 @@ const Layout = () => {
     }
     return (
         <>
-            <header>
-                <nav className="shadow border px-4 lg:px-6 py-2.5 ">
-                    <div className="flex  flex-wrap justify-between items-center mx-auto ">
+            <header >
+                <nav className=" shadow border px-4 lg:px-6 py-2.5 ">
+                    <div className="flex flex-wrap justify-between items-center mx-auto ">
                         <Link to="/" className="flex items-center">
                         <span
                             className="self-center text-xl font-semibold whitespace-nowrap hover:scale-105  ">
@@ -30,11 +33,7 @@ const Layout = () => {
                         </span>
                         </Link>
                         <div className="flex items-center lg:order-2 ">
-                            <Link to="/cart"
-                                  className="px-4 lg:px-5 py-2 lg:py-2.5 hover:scale-95  rounded-3xl bg-black">
-                                <FaCartShopping className="text-white rounded inline-block  w-5 h-5"/>
-                                <span className="  text-white ml-2 font-medium align-top">{count}</span>
-                            </Link>
+                                <CartBadge count={count}/>
                             <Link to="/login"
                                   className="flex ml-auto items-center px-4 lg:px-5 py-2 lg:py-2.5">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -48,6 +47,7 @@ const Layout = () => {
                         </div>
                     </div>
                 </nav>
+
             </header>
             <Outlet/>
         </>

@@ -8,7 +8,6 @@ import SignUpForm from "./Forms/SignUpForm.tsx";
 import PrivateRoute from "../route/PrivateRoute.tsx";
 import Admin from "../pages/Admin.tsx";
 import Product from "../pages/Product.tsx";
-import Cart from "../pages/Cart.tsx";
 import NoPage from "./NoPage.tsx";
 
 const AppRouter: FC = () => {
@@ -22,7 +21,6 @@ const AppRouter: FC = () => {
         <Route path="product/:id" element={<Product/>}/>
         <Route element={<PrivateRoute/>}>
             <Route path="/admin" element={<Admin/>}/>
-            <Route path="/cart" element={<Cart/>}/>
         </Route>
         <Route path="*" element={<NoPage/>}/>
     </Route>

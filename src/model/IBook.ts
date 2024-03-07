@@ -9,9 +9,6 @@ export interface IBook {
     price: number
     publishedDate: string
     description: string
-    imageId: number
     publisher: string
-    authors: IAuthor[]
-    categories: ICategory[],
-    image:IImage
+    image: IImage
 }
