@@ -1,6 +1,5 @@
 import React from 'react';
-import {removeFromCart} from "../features/cart/cartSlicer.ts";
-import {IOptions} from "../model/IOptions.ts";
+import {addCartItem} from "../features/cart/cartSlicer.ts";
 import {IImage} from "../model/IImage.ts";
 import {IAuthor} from "../model/IAuthor.ts";
 import {useAppDispatch} from "../app/hooks.ts";
@@ -23,11 +22,16 @@ interface ProductInfoProps{
 
 const ProductInfo:React.FC<ProductInfoProps> = (props) => {
     const dispatch = useAppDispatch()
+    const [addToCartOnDb] = useAddToCartMutation();
     const  handleAddToCart = async () => {
-        const cart = await addToCart(Number(props.id))
-        console.log(cart)
+        const cart = await addToCartOnDb(props.id)
+        if('data' in cart) {
+            dispatch(addCartItem(cart.data))
+        }
+        else {
+            console.log(cart.error)
+        }
     }
-    const [addToCart] = useAddToCartMutation();
     return (
         <div className="flex flex-col md:flex-row -mx-4">
             <div className="md:flex-1 px-4">
@@ -66,13 +70,6 @@ const ProductInfo:React.FC<ProductInfoProps> = (props) => {
                             onClick={handleAddToCart}
                             className=" w-full bg-gray-900 d text-white py-2 px-4 font-bold hover:bg-gray-800 ">
                             Add to Cart
-                        </button>
-                        <button
-                            onClick={() => {
-                                dispatch(removeFromCart())
-                            }}
-                            className=" w-full bg-gray-900 d text-white py-2 px-4 font-bold hover:bg-gray-800 ">
-                            Remove to Cart
                         </button>
                     </div>
                 </div>

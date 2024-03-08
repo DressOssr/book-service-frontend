@@ -1,29 +1,22 @@
 import {Outlet, Link} from "react-router-dom";
-import Dropdown from "./UI/Dropdown.tsx";
-import {useGetCountQuery} from "../features/cart/cartApiSlice.ts";
+import {useGetUserCartItemQuery} from "../features/cart/cartApiSlice.ts";
 import React, {useEffect} from "react";
 import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
-import {selectCount, setCartCount} from "../features/cart/cartSlicer.ts";
-import {CiShoppingCart} from "react-icons/ci";
-import {FaCartShopping} from "react-icons/fa6";
-import AddAuthorForm from "./Forms/AddAuthorForm.tsx";
-import Modal from "./UI/Modal/Modal.tsx";
+import {setCartItems} from "../features/cart/cartSlicer.ts";
 import CartBadge from "./CartBadge.tsx";
 
 const Layout = () => {
-    const {data: countCart, isLoading} = useGetCountQuery();
+    const {data: carts, isLoading} = useGetUserCartItemQuery();
     const dispatch = useAppDispatch();
-    const count = useAppSelector(state => state.cart.value)
+    const quantity = useAppSelector(state => state.cart.cartItems.length);
     useEffect(() => {
-        if (countCart)
-            dispatch(setCartCount(countCart))
-    }, [countCart]);
-    if (isLoading) {
-        return <h1>Loading...</h1>
-    }
+        if (!isLoading) {
+            dispatch(setCartItems(carts || []))
+        }
+    }, [isLoading]);
     return (
         <>
-            <header >
+            <header>
                 <nav className=" shadow border px-4 lg:px-6 py-2.5 ">
                     <div className="flex flex-wrap justify-between items-center mx-auto ">
                         <Link to="/" className="flex items-center">
@@ -33,7 +26,7 @@ const Layout = () => {
                         </span>
                         </Link>
                         <div className="flex items-center lg:order-2 ">
-                                <CartBadge count={count}/>
+                            <CartBadge count={quantity}/>
                             <Link to="/login"
                                   className="flex ml-auto items-center px-4 lg:px-5 py-2 lg:py-2.5">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -43,11 +36,9 @@ const Layout = () => {
                                           clipRule="evenodd"/>
                                 </svg>
                             </Link>
-                            <Dropdown/>
                         </div>
                     </div>
                 </nav>
-
             </header>
             <Outlet/>
         </>

@@ -18,13 +18,10 @@ const customStyles = {
     },
 };
 const CartBadge: React.FC<CartBadgeProps> = ({count}) => {
-    let subtitle: HTMLHeadingElement;
     const [modalIsOpen, setModalIsOpen] = React.useState<boolean>(false);
-
     function toggleModal() {
         setModalIsOpen(!modalIsOpen);
     }
-
 
     return (
         <>
@@ -40,7 +37,7 @@ const CartBadge: React.FC<CartBadgeProps> = ({count}) => {
                 isOpen={modalIsOpen}
                 onClose={toggleModal}
             >
-               <><Cart isClose={toggleModal}/></>
+                <Cart/>
             </Modal>
         </>
     );

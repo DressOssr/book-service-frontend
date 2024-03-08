@@ -1,28 +1,47 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {RootState} from "../../app/store.ts";
+import {ICart} from "../../model/ICart.ts";
 
 
 interface CartState {
-    value: number
+    cartItems:ICart[]
 }
+
 const initialState: CartState = {
-    value: 0
+    cartItems: []
 }
 const cartSlicer = createSlice({
     name: "cart",
-    initialState:initialState,
+    initialState: initialState,
     reducers: {
-        setCartCount: (state, action:PayloadAction<number>) => {
-          state.value = action.payload
+        // setCartCount: (state, action: PayloadAction<number>) => {
+        //     state.quantity = action.payload
+        // },
+        // addToCart: (state) => {
+        //     state.quantity += 1
+        // },
+        // removeFromCart: (state) => {
+        //     state.quantity -= 1
+        // },
+        addCartItem: (state, action: PayloadAction<ICart>) => {
+            state.cartItems.push(action.payload)
         },
-        addToCart: (state ) => {
-            state.value += 1
+        setCartItems: (state, action: PayloadAction<ICart[]>) => {
+                state.cartItems = action.payload
         },
-        removeFromCart: (state) => {
-            state.value -= 1
+        removeItem: (state, action: PayloadAction<number>) => {
+           state.cartItems = state.cartItems.filter(cart => cart.id !== action.payload)
         }
     }
 })
-export const {addToCart, removeFromCart,setCartCount} = cartSlicer.actions
+export const {
+    // addToCart,
+    // removeFromCart,
+    // setCartCount,
+    setCartItems,
+    addCartItem,
+    removeItem
+} = cartSlicer.actions
 export default cartSlicer.reducer
-export const selectCount = (state: RootState) => state.cart.value
+export const selectCarts = (state: RootState) => state.cart.cartItems
+export const selectCartCount = (state: RootState) => state.cart.cartItems.size

@@ -8,7 +8,7 @@ interface ModalProps {
     children: ReactElement;
 }
 
-const Modal: React.FC<ModalProps> = ({title = "", isOpen, onClose, children}) => {
+const Modal: React.FC<ModalProps> = ({title, isOpen, onClose, children}) => {
     return (
         <>
             {isOpen ?
