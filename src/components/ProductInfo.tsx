@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {addCartItem} from "../features/cart/cartSlicer.ts";
 import {IImage} from "../model/IImage.ts";
 import {IAuthor} from "../model/IAuthor.ts";
-import {useAppDispatch} from "../app/hooks.ts";
+import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
 import {useAddToCartMutation} from "../features/cart/cartApiSlice.ts";
 import {ICategory} from "../model/ICategory.ts";
+import {selectCartItems} from "../features/cart/cartSlicer.ts";
 
-interface ProductInfoProps{
+interface ProductInfoProps {
     id: number
     title: string
     subtitle?: string
@@ -16,19 +17,23 @@ interface ProductInfoProps{
     publisher: string
     authors: IAuthor[]
     categories: ICategory[],
-    image:IImage
+    image: IImage
 }
 
 
-const ProductInfo:React.FC<ProductInfoProps> = (props) => {
+const ProductInfo: React.FC<ProductInfoProps> = (props) => {
     const dispatch = useAppDispatch()
     const [addToCartOnDb] = useAddToCartMutation();
-    const  handleAddToCart = async () => {
+    const cartItems = useAppSelector(selectCartItems)
+    const [bookExistsInCart, setBookExistsInCart] =
+        useState<boolean>(cartItems.some((item) => item.bookId === props.id))
+
+    const handleAddToCart = async () => {
         const cart = await addToCartOnDb(props.id)
-        if('data' in cart) {
+        if ('data' in cart) {
             dispatch(addCartItem(cart.data))
-        }
-        else {
+            setBookExistsInCart(true)
+        } else {
             console.log(cart.error)
         }
     }
@@ -66,11 +71,20 @@ const ProductInfo:React.FC<ProductInfoProps> = (props) => {
                 </div>
                 <div className="flex justify-center">
                     <div className="w-1/2 ">
-                        <button
-                            onClick={handleAddToCart}
-                            className=" w-full bg-gray-900 d text-white py-2 px-4 font-bold hover:bg-gray-800 ">
-                            Add to Cart
-                        </button>
+                        {bookExistsInCart
+                            ?
+                            <button
+                                className=" w-full bg-gray-700 d text-white py-2 px-4 font-bold hover:bg-gray-800 ">
+                                In Cart
+                            </button>
+                            :
+                            <button
+                                onClick={handleAddToCart}
+                                className=" w-full bg-gray-900 d text-white py-2 px-4 font-bold hover:bg-gray-800 ">
+                                Add to Cart
+                            </button>
+                        }
+
                     </div>
                 </div>
             </div>

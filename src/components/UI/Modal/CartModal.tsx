@@ -1,0 +1,20 @@
+import React, {ReactElement} from 'react';
+import Cart from "../../Cart.tsx";
+import Modal from "./Modal.tsx";
+interface ModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+}
+const CartModal:React.FC<ModalProps> = ({ isOpen, onClose,}) => {
+    return (
+        <Modal
+            title="Cart"
+            isOpen={isOpen}
+            onClose={onClose}
+        >
+            <Cart/>
+        </Modal>
+    );
+};
+
+export default CartModal;

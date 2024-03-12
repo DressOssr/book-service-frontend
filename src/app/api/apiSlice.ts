@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery,} from "@reduxjs/toolkit/query/react";
-import {logOut, setCredentials} from "../../features/auth/authSlice.js";
+import {logOut, setCredentials, setIsLoading} from "../../features/auth/authSlice.js";
 import {IUser} from "../../model/IUser.ts";
 import {RootState} from "../store.ts";
 import {ICategory} from "../../model/ICategory.ts";
@@ -21,6 +21,7 @@ const baseQuery = fetchBaseQuery({
 
 // @ts-ignore
 const baseQueryWithReAuth = async (args, api, extraOption) => {
+    api.dispatch(setIsLoading(true));
     let result = await baseQuery(args, api, extraOption);
     if (result?.error?.status === 401) {
         const refreshResult = await baseQuery("/auth/refresh", api, extraOption);
@@ -31,9 +32,9 @@ const baseQueryWithReAuth = async (args, api, extraOption) => {
         } else {
             console.log("logOut")
             api.dispatch(logOut())
-            localStorage.removeItem("token")
         }
     }
+    api.dispatch(setIsLoading(false));
     return result;
 }
 

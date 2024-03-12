@@ -1,28 +1,24 @@
-import {FC, useEffect, useState} from "react";
+import {FC, useEffect} from "react";
 import {Navigate, useLocation} from "react-router";
 import {Outlet} from "react-router-dom";
-import {IAuth} from "../model/IAuth.ts";
-import {useLazyRefreshTokenQuery, useRefreshTokenQuery} from "../features/auth/authApiSlice.ts";
-import {useAppDispatch} from "../app/hooks.ts";
-import {setCredentials} from "../features/auth/authSlice.ts";
-import Spinner from "../components/UI/Spinner.tsx";
+import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
+import {selectIsAuth, selectIsLoading, setIsLoading} from "../features/auth/authSlice.ts";
 
 
 const PrivateRoute: FC = () => {
-    const {data: token, isLoading} = useRefreshTokenQuery()
+    const isAuth = useAppSelector(selectIsAuth);
+    const isLoading = useAppSelector(selectIsLoading);
     const location = useLocation();
-    if (isLoading) {
+    const dispatch = useAppDispatch()
+    if (isLoading) return <div>Loading...</div>
+    else {
         return (
-            <>
-                <Spinner/>
-            </>
-        )
+            isAuth
+                ? <Outlet/>
+                : <Navigate to="login" state={{form: location}} replace={true}/>
+        );
     }
-    return (
-        token
-            ? <Outlet/>
-            : <Navigate to="login" state={{form: location}} replace={true}/>
-    );
+
 };
 
 export default PrivateRoute;

@@ -21,21 +21,11 @@ const Cart: React.FC = () => {
     }
     return (
         <div className="mx-auto bg-white p-6 ">
-            {/*{cartsItems.values().map(cart => {*/}
-            {/*        return <CartItem*/}
-            {/*            key={cart.id}*/}
-            {/*            image={cart.book.image.buffer}*/}
-            {/*            title={cart.book.title}*/}
-            {/*            price={cart.book.price}*/}
-            {/*            quantity={cart.quantity}*/}
-            {/*            remove={() => handlerRemove(cart.id)}*/}
-            {/*        />*/}
-            {/*    }*/}
-            {/*)}*/}
             {
                 cartsItems.map((cart) => {
                     return <CartItem
                         key={cart.id}
+                        quantity={cart.quantity}
                         image={cart.book.image.buffer}
                         title={cart.book.title}
                         price={cart.book.price}

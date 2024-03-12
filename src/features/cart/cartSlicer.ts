@@ -43,5 +43,5 @@ export const {
     removeItem
 } = cartSlicer.actions
 export default cartSlicer.reducer
-export const selectCarts = (state: RootState) => state.cart.cartItems
-export const selectCartCount = (state: RootState) => state.cart.cartItems.size
+export const selectCartItems = (state: RootState) => state.cart.cartItems
+export const selectCartItemsCount = (state: RootState) => state.cart.cartItems.length
