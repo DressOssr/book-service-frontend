@@ -16,7 +16,7 @@ const Card:React.FC<CardProps> = ({id,image,title,price}) => {
     }
     return (
         <div
-            className="m-5 inline-block w-80 transform overflow-hidden rounded-lg bg-white shadow-md duration-300 hover:scale-105 hover:shadow-lg"
+            className="m-5 cursor-pointer inline-block w-80 transform overflow-hidden rounded-lg bg-white shadow-md duration-300 hover:scale-105 hover:shadow-lg"
             onClick={handleClick}
         >
 

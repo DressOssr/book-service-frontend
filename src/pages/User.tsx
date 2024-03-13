@@ -1,9 +1,10 @@
 import React from 'react';
+import FavoriteList from "../components/FavoriteList.tsx";
 
 const User = () => {
     return (
         <div>
-            USERS
+            <FavoriteList/>
         </div>
     );
 };

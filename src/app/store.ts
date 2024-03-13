@@ -2,6 +2,7 @@ import {combineReducers, configureStore} from '@reduxjs/toolkit'
 import authReducer from "../features/auth/authSlice.ts"
 import userReducer from "../features/user/userSlicer.ts"
 import cartReducer from "../features/cart/cartSlicer.ts"
+import favoriteReducer from "../features/favorite/favoriteSlice.ts"
 import {apiSlice} from "./api/apiSlice.ts";
 
 
@@ -9,6 +10,7 @@ const rootReducer = combineReducers({
     auth:authReducer,
     userReducer,
     cart:cartReducer,
+    favorite:favoriteReducer,
     [apiSlice.reducerPath]:apiSlice.reducer
 
 })

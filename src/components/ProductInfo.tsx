@@ -6,6 +6,7 @@ import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
 import {useAddToCartMutation} from "../features/cart/cartApiSlice.ts";
 import {ICategory} from "../model/ICategory.ts";
 import {selectCartItems} from "../features/cart/cartSlicer.ts";
+import {useAddFavoriteMutation} from "../features/favorite/favoriteApiSlice.ts";
 
 interface ProductInfoProps {
     id: number
@@ -24,21 +25,27 @@ interface ProductInfoProps {
 const ProductInfo: React.FC<ProductInfoProps> = (props) => {
     const dispatch = useAppDispatch()
     const [addToCartOnDb] = useAddToCartMutation();
+    const [addToFavoriteOnDb] = useAddFavoriteMutation();
     const cartItems = useAppSelector(selectCartItems)
     const [bookExistsInCart, setBookExistsInCart] =
-        useState<boolean>(cartItems.some((item) => item.bookId === props.id))
-
+        useState<boolean>()
+    useEffect(() => {
+        setBookExistsInCart(cartItems.some((item) => item.bookId === props.id))
+    }, [cartItems])
     const handleAddToCart = async () => {
         const cart = await addToCartOnDb(props.id)
         if ('data' in cart) {
             dispatch(addCartItem(cart.data))
             setBookExistsInCart(true)
         } else {
-            console.log(cart.error)
+            const cart = await addToCartOnDb(props.id)
         }
     }
+    const handleAddToFavorite = async () => {
+        await addToFavoriteOnDb(props.id)
+    }
     return (
-        <div className="flex flex-col md:flex-row -mx-4">
+        <div className="flex flex-col md:flex-row -mx-4 ">
             <div className="md:flex-1 px-4">
                 <div className="rounded-lg bg-gray-300 mb-4">
                     <img className="w-full h-96 p-1 shadow-lg object-contain"
@@ -84,7 +91,11 @@ const ProductInfo: React.FC<ProductInfoProps> = (props) => {
                                 Add to Cart
                             </button>
                         }
-
+                        <button
+                            onClick={handleAddToFavorite}
+                            className="mt-2 w-full bg-gray-900 d text-white py-2 px-4 font-bold hover:bg-gray-800 ">
+                            Add to Favorite
+                        </button>
                     </div>
                 </div>
             </div>

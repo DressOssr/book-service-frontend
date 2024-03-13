@@ -14,15 +14,6 @@ const cartSlicer = createSlice({
     name: "cart",
     initialState: initialState,
     reducers: {
-        // setCartCount: (state, action: PayloadAction<number>) => {
-        //     state.quantity = action.payload
-        // },
-        // addToCart: (state) => {
-        //     state.quantity += 1
-        // },
-        // removeFromCart: (state) => {
-        //     state.quantity -= 1
-        // },
         addCartItem: (state, action: PayloadAction<ICart>) => {
             state.cartItems.push(action.payload)
         },
@@ -35,9 +26,6 @@ const cartSlicer = createSlice({
     }
 })
 export const {
-    // addToCart,
-    // removeFromCart,
-    // setCartCount,
     setCartItems,
     addCartItem,
     removeItem

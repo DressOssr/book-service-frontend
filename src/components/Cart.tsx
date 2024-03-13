@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDeleteByIdMutation, useGetUserCartItemQuery} from "../features/cart/cartApiSlice.ts";
 import CartItem from "./CartItem.tsx";
-import {ICart} from "../model/ICart.ts";
 import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
 import {removeItem, setCartItems} from "../features/cart/cartSlicer.ts";
 

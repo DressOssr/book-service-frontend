@@ -8,17 +8,23 @@ import {selectCartItemsCount} from "../features/cart/cartSlicer.ts";
 import {IoLogIn} from "react-icons/io5";
 import {selectIsAuth} from "../features/auth/authSlice.ts";
 import {FaUserAstronaut} from "react-icons/fa";
+import {useGetFavoriteByUserQuery} from "../features/favorite/favoriteApiSlice.ts";
+import {setFavoriteItems} from "../features/favorite/favoriteSlice.ts";
 
 const Layout = () => {
-    const {data: carts, isLoading} = useGetUserCartItemQuery();
+    const {data: carts, isLoading:isLoadingCarts} = useGetUserCartItemQuery();
+    const {data: favorite, isLoading:isLoadingFavorite} = useGetFavoriteByUserQuery();
     const dispatch = useAppDispatch();
     const quantity = useAppSelector(selectCartItemsCount)
     const isAuth = useAppSelector(selectIsAuth)
     useEffect(() => {
-        if (!isLoading) {
+        if (!isLoadingCarts) {
             dispatch(setCartItems(carts || []))
         }
-    }, [isLoading]);
+        if (!isLoadingFavorite) {
+            dispatch(setFavoriteItems(favorite || []))
+        }
+    }, [isLoadingCarts,isLoadingFavorite]);
     return (
         <>
             <header>
