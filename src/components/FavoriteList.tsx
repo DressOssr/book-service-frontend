@@ -1,12 +1,12 @@
 import React from 'react';
 import {useGetFavoriteByUserQuery, useRemoveFromFavoriteMutation} from "../features/favorite/favoriteApiSlice.ts";
-import {useAppDispatch} from "../app/hooks.ts";
-import {removeFavorite} from "../features/favorite/favoriteSlice.ts";
+import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
+import {removeFavorite, selectFavoriteItems} from "../features/favorite/favoriteSlice.ts";
 import FavoriteItem from "./FavoriteItem.tsx";
 
 const FavoriteList = () => {
-        const {data, error, isLoading} = useGetFavoriteByUserQuery()
         const [removeFavoriteById] = useRemoveFromFavoriteMutation()
+        const wishlist = useAppSelector(selectFavoriteItems)
         const dispatch = useAppDispatch()
         const handelRemove = (id: number) => {
             try {
@@ -15,12 +15,11 @@ const FavoriteList = () => {
             } catch (e) {
                 console.log(e)
             }
-
         }
-        if (isLoading || !data) return <div>Loading...</div>
+        if (!wishlist) return <div>Loading...</div>
         return (
             <>
-                {data.map((favorite) => {
+                {wishlist.map((favorite) => {
                     return (
                         <FavoriteItem
                             key={favorite.id}

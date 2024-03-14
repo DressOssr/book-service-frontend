@@ -18,11 +18,17 @@ export const favoriteApiSlice = apiSlice.injectEndpoints({
         }),
         removeFromFavorite: builder.mutation<void, number>({
             query: (id) => ({
-                url: '/favorite',
+                url: `/favorite/${id}`,
                 method: 'DELETE',
-                body: {id},
+            })
+        }),
+        checkIfExist: builder.query<boolean, number>({
+            query: (id) => ({
+                url: `/favorite/${id}`,
+                method: 'GET',
             })
         })
+
     }),
 
 })
@@ -30,5 +36,6 @@ export const {
     useAddFavoriteMutation,
     useGetFavoriteByUserQuery,
     useRemoveFromFavoriteMutation,
+    useCheckIfExistQuery
 } = favoriteApiSlice
 

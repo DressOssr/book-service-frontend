@@ -23,7 +23,7 @@ const AppRouter: FC = () => {
         <Route element={<PrivateRoute/>}>
             <Route path="/admin" element={<Admin/>}/>
             <Route path="/user" element={<User/>}/>
-        </Route>
+        </Route>++---
         <Route path="*" element={<NoPage/>}/>
     </Route>
 </Routes>

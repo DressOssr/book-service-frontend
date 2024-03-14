@@ -32,7 +32,6 @@ export const cartApiSlice = apiWithTag.injectEndpoints({
                 url: `/cart/${id}`,
                 method: 'DELETE'
             }),
-            // @ts-ignore
             invalidatesTags: ['Cart']
         }),
     })

@@ -6,7 +6,8 @@ import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
 import {useAddToCartMutation} from "../features/cart/cartApiSlice.ts";
 import {ICategory} from "../model/ICategory.ts";
 import {selectCartItems} from "../features/cart/cartSlicer.ts";
-import {useAddFavoriteMutation} from "../features/favorite/favoriteApiSlice.ts";
+import {useAddFavoriteMutation, useCheckIfExistQuery} from "../features/favorite/favoriteApiSlice.ts";
+import {addFavoriteItem, selectFavoriteItems} from "../features/favorite/favoriteSlice.ts";
 
 interface ProductInfoProps {
     id: number
@@ -23,26 +24,38 @@ interface ProductInfoProps {
 
 
 const ProductInfo: React.FC<ProductInfoProps> = (props) => {
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
     const [addToCartOnDb] = useAddToCartMutation();
     const [addToFavoriteOnDb] = useAddFavoriteMutation();
+    const [favoriteIsExist,setFavoriteIsExist] = useState<boolean>()
     const cartItems = useAppSelector(selectCartItems)
+    const favoriteItems = useAppSelector(selectFavoriteItems)
     const [bookExistsInCart, setBookExistsInCart] =
-        useState<boolean>()
+        useState<boolean>();
+
     useEffect(() => {
         setBookExistsInCart(cartItems.some((item) => item.bookId === props.id))
     }, [cartItems])
+    useEffect(() => {
+        setFavoriteIsExist(favoriteItems.some((item) => item.bookId === props.id))
+    }, [favoriteItems])
     const handleAddToCart = async () => {
         const cart = await addToCartOnDb(props.id)
         if ('data' in cart) {
             dispatch(addCartItem(cart.data))
             setBookExistsInCart(true)
         } else {
-            const cart = await addToCartOnDb(props.id)
+            console.log(cart)
         }
     }
     const handleAddToFavorite = async () => {
-        await addToFavoriteOnDb(props.id)
+        const favorite = await addToFavoriteOnDb(props.id)
+        if ('data' in favorite) {
+            dispatch(addFavoriteItem(favorite.data))
+            setFavoriteIsExist(true)
+        } else {
+            console.log(favorite)
+        }
     }
     return (
         <div className="flex flex-col md:flex-row -mx-4 ">
@@ -91,11 +104,19 @@ const ProductInfo: React.FC<ProductInfoProps> = (props) => {
                                 Add to Cart
                             </button>
                         }
-                        <button
-                            onClick={handleAddToFavorite}
-                            className="mt-2 w-full bg-gray-900 d text-white py-2 px-4 font-bold hover:bg-gray-800 ">
-                            Add to Favorite
-                        </button>
+                        {favoriteIsExist ?
+                            <button
+                                className="mt-2 w-full bg-gray-900 d text-white py-2 px-4 font-bold hover:bg-gray-800 ">
+                                In a Favorite
+                            </button>
+                            :
+                            <button
+                                onClick={handleAddToFavorite}
+                                className="mt-2 w-full bg-gray-900 d text-white py-2 px-4 font-bold hover:bg-gray-800 ">
+                                Add to Favorite
+                            </button>
+                        }
+
                     </div>
                 </div>
             </div>

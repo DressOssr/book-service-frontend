@@ -12,19 +12,14 @@ import {useGetFavoriteByUserQuery} from "../features/favorite/favoriteApiSlice.t
 import {setFavoriteItems} from "../features/favorite/favoriteSlice.ts";
 
 const Layout = () => {
-    const {data: carts, isLoading:isLoadingCarts} = useGetUserCartItemQuery();
-    const {data: favorite, isLoading:isLoadingFavorite} = useGetFavoriteByUserQuery();
-    const dispatch = useAppDispatch();
-    const quantity = useAppSelector(selectCartItemsCount)
     const isAuth = useAppSelector(selectIsAuth)
+    const {data:wishlist,isLoading} = useGetFavoriteByUserQuery()
+    const dispatch = useAppDispatch()
     useEffect(() => {
-        if (!isLoadingCarts) {
-            dispatch(setCartItems(carts || []))
+        if (wishlist) {
+            dispatch(setFavoriteItems(wishlist))
         }
-        if (!isLoadingFavorite) {
-            dispatch(setFavoriteItems(favorite || []))
-        }
-    }, [isLoadingCarts,isLoadingFavorite]);
+    },[isLoading])
     return (
         <>
             <header>
@@ -37,7 +32,7 @@ const Layout = () => {
                         </span>
                         </Link>
                         <div className="flex items-center lg:order-2 ">
-                            <CartBadge count={quantity}/>
+                            <CartBadge/>
                             {isAuth ?
                                 <Link to="/user"
                                       className="flex ml-auto items-center mx-2 px-3 py-3 hover:scale-110">
