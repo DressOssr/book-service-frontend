@@ -23,7 +23,7 @@ const Layout = () => {
     return (
         <>
             <header>
-                <nav className=" shadow border px-4 lg:px-6 py-2.5 ">
+                <nav className="shadow border px-4 lg:px-6 py-2.5 ">
                     <div className="flex flex-wrap justify-between items-center mx-auto ">
                         <Link to="/" className="flex items-center">
                         <span

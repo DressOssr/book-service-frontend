@@ -9,7 +9,7 @@ const FavoriteItem:React.FC<FavoriteItemProps> = ({bookId,remove}) => {
     const {data:book, error, isLoading} = useGetBookByIdQuery(bookId)
     if (isLoading || !book) return <div>Loading...</div>
     return (
-        <div className="flex items-center justify-between border-b-2 pb-2 mb-4">
+        <div className=" flex items-center justify-between border-b-2 pb-2 mb-4">
             <div className="flex items-center">
                 <img src={"data:image/png;base64," + book.image.buffer} alt="Product 1" className="w-20 object-cover rounded"/>
                 <div className="ml-4">

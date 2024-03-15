@@ -26,10 +26,18 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 method:'GET'
             })
         }),
+        logout:builder.mutation<void,void>({
+            query:()=>({
+                url:'/auth/logout',
+                method:'GET'
+            })
+        }),
     })
 })
 
-export const {useLoginMutation,
+export const {
+    useLoginMutation,
     useRegisterMutation,
     useRefreshTokenQuery,
-    useLazyRefreshTokenQuery} = authApiSlice
+    useLogoutMutation,
+    } = authApiSlice

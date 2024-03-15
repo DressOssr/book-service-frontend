@@ -10,25 +10,28 @@ import Admin from "../pages/Admin.tsx";
 import Product from "../pages/Product.tsx";
 import NoPage from "./NoPage.tsx";
 import User from "../pages/User.tsx";
+import FavoriteList from "./FavoriteList.tsx";
 
 const AppRouter: FC = () => {
     return (
         <>
-<Routes>
-    <Route path="/" element={<Layout/>}>
-        <Route index element={<Home/>}/>
-        <Route path="login" element={<Auth><SignInForm/></Auth>}/>
-        <Route path="register" element={<Auth><SignUpForm/></Auth>}/>
-        <Route path="product/:id" element={<Product/>}/>
-        <Route element={<PrivateRoute/>}>
-            <Route path="/admin" element={<Admin/>}/>
-            <Route path="/user" element={<User/>}/>
-        </Route>++---
-        <Route path="*" element={<NoPage/>}/>
-    </Route>
-</Routes>
-</>
-);
+            <Routes>
+                <Route path="/" element={<Layout/>}>
+                    <Route index element={<Home/>}/>
+                    <Route path="login" element={<Auth><SignInForm/></Auth>}/>
+                    <Route path="register" element={<Auth><SignUpForm/></Auth>}/>
+                    <Route path="product/:id" element={<Product/>}/>
+                    <Route element={<PrivateRoute/>}>
+                        <Route path="admin" element={<Admin/>}/>
+                        <Route path="user" element={<User/>}>
+                            <Route path='favorite' element={<FavoriteList/>}/>
+                        </Route>
+                    </Route>
+                    <Route path="*" element={<NoPage/>}/>
+                </Route>
+            </Routes>
+        </>
+    );
 };
 
 export default AppRouter;

@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {FormEventHandler, useEffect, useRef, useState} from "react";
 import {useAppDispatch} from "../../app/hooks.ts";
 import {useLoginMutation} from "../../features/auth/authApiSlice.ts";
@@ -12,7 +12,7 @@ const SignInForm = () => {
 
         const dispatch = useAppDispatch();
         const [login, {isLoading}] = useLoginMutation()
-
+    const navigate = useNavigate();
         // const userRef = useRef<HTMLInputElement | null>(null); //TODO
         // useEffect(() => {
         //     if (userRef.current)
@@ -28,6 +28,7 @@ const SignInForm = () => {
                 const data = await login({password, email}).unwrap();
                 localStorage.setItem("token",data.accessToken)
                 dispatch(setCredentials(data))
+                navigate('/')
             } catch (error: any) {
                 console.log(error)
                 if (error.data)
