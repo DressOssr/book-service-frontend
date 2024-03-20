@@ -1,5 +1,5 @@
 import {Link, useNavigate} from "react-router-dom";
-import {FormEventHandler, useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import {useAppDispatch} from "../../app/hooks.ts";
 import {useLoginMutation} from "../../features/auth/authApiSlice.ts";
 import {setCredentials} from "../../features/auth/authSlice.ts";
@@ -12,7 +12,7 @@ const SignInForm = () => {
 
         const dispatch = useAppDispatch();
         const [login, {isLoading}] = useLoginMutation()
-    const navigate = useNavigate();
+        const navigate = useNavigate();
         // const userRef = useRef<HTMLInputElement | null>(null); //TODO
         // useEffect(() => {
         //     if (userRef.current)
@@ -22,19 +22,18 @@ const SignInForm = () => {
         useEffect(() => {
             setErrorMessage('')
         }, [email, password])
-        const handleSubmit = async (event:any) => {
-            event.preventDefault()
+        const handleSubmit = async (event: any) => {
+            event.preventDefault();
             try {
                 const data = await login({password, email}).unwrap();
-                localStorage.setItem("token",data.accessToken)
-                dispatch(setCredentials(data))
-                navigate('/')
+                localStorage.setItem("token", data.accessToken);
+                dispatch(setCredentials(data));
+                navigate('/');
             } catch (error: any) {
-                console.log(error)
                 if (error.data)
-                    setErrorMessage(error.data.message)
+                    setErrorMessage(error.data.message);
                 else
-                    setErrorMessage(error.error)
+                    setErrorMessage(error.error);
             }
         }
         return (

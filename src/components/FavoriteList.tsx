@@ -8,7 +8,6 @@ const FavoriteList = () => {
         const [removeFavoriteById] = useRemoveFromFavoriteMutation()
         const wishlist = useAppSelector(selectFavoriteItems)
         const dispatch = useAppDispatch()
-        console.log(wishlist)
         const handelRemove = (id: number) => {
             try {
                 removeFavoriteById(id)

@@ -2,17 +2,16 @@ import {apiSlice} from "../../app/api/apiSlice.ts";
 import {ICart} from "../../model/ICart.ts";
 import {IBook} from "../../model/IBook.ts";
 
-const apiWithTag = apiSlice.enhanceEndpoints({addTagTypes: ['Cart']})
 
-export const cartApiSlice = apiWithTag.injectEndpoints({
+export const cartApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
-        addToCart: builder.mutation<ICart, number>({
-            query: (id) => ({
+        addToCart: builder.mutation<ICart, {id:number,bookPrice:number}>({
+            query: (dto) => ({
                 url: '/cart',
                 method: 'POST',
-                body: {bookId: id},
+                body: {bookId: dto.id, bookPrice: dto.bookPrice},
             }),
-            invalidatesTags: ["Cart"]
+            invalidatesTags: ['Cart']
         }),
         getCount: builder.query<number, void>({
             query: () => ({
@@ -25,14 +24,13 @@ export const cartApiSlice = apiWithTag.injectEndpoints({
                 url: '/cart',
                 method: 'GET',
             }),
-            providesTags: ['Cart']
+            providesTags: ['AuthLogout', 'Cart']
         }),
         deleteById: builder.mutation<void, number>({
             query: (id) => ({
                 url: `/cart/${id}`,
                 method: 'DELETE'
             }),
-            invalidatesTags: ['Cart']
         }),
     })
 })

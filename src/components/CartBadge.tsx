@@ -8,6 +8,7 @@ import {useGetUserCartItemQuery} from "../features/cart/cartApiSlice.ts";
 import {selectCartItemsCount, setCartItems} from "../features/cart/cartSlicer.ts";
 import {setFavoriteItems} from "../features/favorite/favoriteSlice.ts";
 import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
+import {selectIsAuth} from "../features/auth/authSlice.ts";
 
 
 const customStyles = {
@@ -21,15 +22,16 @@ const customStyles = {
     },
 };
 const CartBadge: React.FC = () => {
-    const {data: carts, isLoading:isLoadingCarts} = useGetUserCartItemQuery();
+    const isAuth = useAppSelector(selectIsAuth)
+    const {data: carts, isLoading:isLoadingCarts} = useGetUserCartItemQuery(undefined,{skip: !isAuth});
     const [modalIsOpen, setModalIsOpen] = React.useState<boolean>(false);
     const quantity = useAppSelector(selectCartItemsCount)
     const dispatch = useAppDispatch();
     useEffect(() => {
-        if (!isLoadingCarts) {
-            dispatch(setCartItems(carts || []))
+        if (carts) {
+            dispatch(setCartItems(carts))
         }
-    }, [isLoadingCarts]);
+    }, [carts]);
     function toggleModal() {
         setModalIsOpen(!modalIsOpen);
     }

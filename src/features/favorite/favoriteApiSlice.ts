@@ -14,7 +14,8 @@ export const favoriteApiSlice = apiSlice.injectEndpoints({
             query: () => ({
                 url: '/favorite',
                 method: 'GET',
-            })
+            }),
+            providesTags: ['AuthLogout']
         }),
         removeFromFavorite: builder.mutation<void, number>({
             query: (id) => ({

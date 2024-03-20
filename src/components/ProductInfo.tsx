@@ -40,7 +40,7 @@ const ProductInfo: React.FC<ProductInfoProps> = (props) => {
         setFavoriteIsExist(favoriteItems.some((item) => item.bookId === props.id))
     }, [favoriteItems])
     const handleAddToCart = async () => {
-        const cart = await addToCartOnDb(props.id)
+        const cart = await addToCartOnDb({id:props.id,bookPrice:Number(props.price)})
         if ('data' in cart) {
             dispatch(addCartItem(cart.data))
             setBookExistsInCart(true)
@@ -51,8 +51,8 @@ const ProductInfo: React.FC<ProductInfoProps> = (props) => {
     const handleAddToFavorite = async () => {
         const favorite = await addToFavoriteOnDb(props.id)
         if ('data' in favorite) {
-            dispatch(addFavoriteItem(favorite.data))
-            setFavoriteIsExist(true)
+            setFavoriteIsExist(true);
+            dispatch(addFavoriteItem(favorite.data));
         } else {
             console.log(favorite)
         }

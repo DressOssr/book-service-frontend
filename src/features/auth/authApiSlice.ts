@@ -11,7 +11,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 url:'/auth/signin',
                 method:'POST',
                 body:{...credentials}
-            })
+            }),
+             invalidatesTags:['AuthLogout']
         }),
         register:builder.mutation<IAuth,ISignUp>({
             query:credentials=>({
@@ -20,7 +21,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 body:{...credentials}
             })
         }),
-        refreshToken:builder.query<IAuth,void>({
+        refreshToken:builder.mutation<IAuth,void>({
             query:()=>({
                 url:'/auth/refresh',
                 method:'GET'
@@ -30,7 +31,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
             query:()=>({
                 url:'/auth/logout',
                 method:'GET'
-            })
+            }),
         }),
     })
 })
@@ -38,6 +39,6 @@ export const authApiSlice = apiSlice.injectEndpoints({
 export const {
     useLoginMutation,
     useRegisterMutation,
-    useRefreshTokenQuery,
+    useRefreshTokenMutation,
     useLogoutMutation,
     } = authApiSlice

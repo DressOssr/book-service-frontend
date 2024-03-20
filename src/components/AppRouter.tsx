@@ -11,6 +11,7 @@ import Product from "../pages/Product.tsx";
 import NoPage from "./NoPage.tsx";
 import User from "../pages/User.tsx";
 import FavoriteList from "./FavoriteList.tsx";
+import Checkout from "../pages/Checkout.tsx";
 
 const AppRouter: FC = () => {
     return (
@@ -23,6 +24,7 @@ const AppRouter: FC = () => {
                     <Route path="product/:id" element={<Product/>}/>
                     <Route element={<PrivateRoute/>}>
                         <Route path="admin" element={<Admin/>}/>
+                        <Route path="checkout" element={<Checkout/>}/>
                         <Route path="user" element={<User/>}>
                             <Route path='favorite' element={<FavoriteList/>}/>
                         </Route>

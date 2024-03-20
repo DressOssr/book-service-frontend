@@ -1,25 +1,32 @@
 import {Outlet, Link} from "react-router-dom";
-import {useGetUserCartItemQuery} from "../features/cart/cartApiSlice.ts";
 import React, {useEffect} from "react";
 import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
-import {setCartItems} from "../features/cart/cartSlicer.ts";
 import CartBadge from "./CartBadge.tsx";
-import {selectCartItemsCount} from "../features/cart/cartSlicer.ts";
 import {IoLogIn} from "react-icons/io5";
-import {selectIsAuth} from "../features/auth/authSlice.ts";
+import {selectIsAuth, setCredentials} from "../features/auth/authSlice.ts";
 import {FaUserAstronaut} from "react-icons/fa";
 import {useGetFavoriteByUserQuery} from "../features/favorite/favoriteApiSlice.ts";
 import {setFavoriteItems} from "../features/favorite/favoriteSlice.ts";
+import {useRefreshTokenMutation} from "../features/auth/authApiSlice.ts";
 
 const Layout = () => {
+    const [refresh] = useRefreshTokenMutation();
     const isAuth = useAppSelector(selectIsAuth)
-    const {data:wishlist,isLoading} = useGetFavoriteByUserQuery()
+    const {data: wishlist, isLoading} = useGetFavoriteByUserQuery(undefined, {skip: !isAuth})
     const dispatch = useAppDispatch()
+    useEffect(() => {
+        refresh().unwrap().then((data) => {
+            dispatch(setCredentials(data))
+        }).catch((e) => {
+            console.log(e)
+        });
+    }, [])
     useEffect(() => {
         if (wishlist) {
             dispatch(setFavoriteItems(wishlist))
         }
-    },[isLoading])
+    }, [wishlist])
+
     return (
         <>
             <header>

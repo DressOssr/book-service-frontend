@@ -4,7 +4,7 @@ import {RootState} from "../../app/store.ts";
 import {IFavorite} from "../../model/IFavorite.ts";
 
 interface FavoriteState {
-    favoriteItems:IFavorite[]
+    favoriteItems: IFavorite[]
 }
 
 const initialState: FavoriteState = {
@@ -22,13 +22,17 @@ const favoriteSlicer = createSlice({
         },
         removeFavorite: (state, action: PayloadAction<number>) => {
             state.favoriteItems = state.favoriteItems.filter(favorite => favorite.id !== action.payload)
+        },
+        clearFavorite: (state) => {
+            state.favoriteItems = initialState.favoriteItems
         }
     }
 })
 export const {
     addFavoriteItem,
     setFavoriteItems,
-    removeFavorite
+    removeFavorite,
+    clearFavorite
 } = favoriteSlicer.actions
 export default favoriteSlicer.reducer
 export const selectFavoriteItems = (state: RootState) => state.favorite.favoriteItems

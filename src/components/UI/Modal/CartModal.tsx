@@ -12,7 +12,7 @@ const CartModal:React.FC<ModalProps> = ({ isOpen, onClose,}) => {
             isOpen={isOpen}
             onClose={onClose}
         >
-            <Cart/>
+            <Cart onClose={onClose}/>
         </Modal>
     );
 };

@@ -3,23 +3,26 @@ import {Link, Outlet, useNavigate} from "react-router-dom";
 import {MdFavoriteBorder} from "react-icons/md";
 import {IoMdLogOut} from "react-icons/io";
 import {useAppDispatch} from "../app/hooks.ts";
-import {useLoginMutation, useLogoutMutation} from "../features/auth/authApiSlice.ts";
+import {useLogoutMutation} from "../features/auth/authApiSlice.ts";
 import {logOut} from "../features/auth/authSlice.ts";
+import {clearFavorite} from "../features/favorite/favoriteSlice.ts";
+import {clearCart} from "../features/cart/cartSlicer.ts";
 
 
 const User: React.FC = () => {
     const [logout] = useLogoutMutation();
     const navigate = useNavigate();
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
     const handleLogout = async () => {
         try {
             await logout();
             dispatch(logOut());
+            dispatch(clearFavorite());
+            dispatch(clearCart());
             navigate('/');
         } catch (e) {
             console.log(e)
         }
-
     }
     return (
         <>
@@ -48,7 +51,9 @@ const User: React.FC = () => {
                                         <path
                                             d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z"/>
                                     </svg>
-                                    <span className="flex-1 ms-3 whitespace-nowrap">Kanban</span>
+                                    <span className="flex-1 ms-3 whitespace-nowrap">
+                                        Kanban
+                                    </span>
                                     <span
                                         className="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full">Pro</span>
                                 </a>
@@ -65,7 +70,9 @@ const User: React.FC = () => {
                                     </svg>
                                     <span className="flex-1 ms-3 whitespace-nowrap">Inbox</span>
                                     <span
-                                        className="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full">3</span>
+                                        className="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full">
+                                        3
+                                    </span>
                                 </a>
                             </li>
                             <li>
