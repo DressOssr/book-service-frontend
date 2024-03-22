@@ -23,24 +23,25 @@ interface ProductInfoProps {
 }
 
 
-const ProductInfo: React.FC<ProductInfoProps> = (props) => {
+const  ProductInfo: React.FC<ProductInfoProps> = (props) => {
     const dispatch = useAppDispatch();
     const [addToCartOnDb] = useAddToCartMutation();
     const [addToFavoriteOnDb] = useAddFavoriteMutation();
-    const [favoriteIsExist,setFavoriteIsExist] = useState<boolean>()
     const cartItems = useAppSelector(selectCartItems)
     const favoriteItems = useAppSelector(selectFavoriteItems)
-    const [bookExistsInCart, setBookExistsInCart] =
-        useState<boolean>();
+    const [bookExistsInCart, setBookExistsInCart] = useState<boolean>();
+    const [favoriteIsExist, setFavoriteIsExist] = useState<boolean>()
+
 
     useEffect(() => {
         setBookExistsInCart(cartItems.some((item) => item.bookId === props.id))
     }, [cartItems])
+
     useEffect(() => {
         setFavoriteIsExist(favoriteItems.some((item) => item.bookId === props.id))
     }, [favoriteItems])
     const handleAddToCart = async () => {
-        const cart = await addToCartOnDb({id:props.id,bookPrice:Number(props.price)})
+        const cart = await addToCartOnDb({id: props.id, bookPrice: Number(props.price)})
         if ('data' in cart) {
             dispatch(addCartItem(cart.data))
             setBookExistsInCart(true)

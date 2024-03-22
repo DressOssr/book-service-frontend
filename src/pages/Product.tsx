@@ -1,8 +1,6 @@
 import React from 'react';
 import {useParams} from "react-router";
 import {useGetBookByIdQuery} from "../features/book/bookApiSlice.ts";
-import {useAddToCartMutation} from "../features/cart/cartApiSlice.ts";
-import {useAppDispatch} from "../app/hooks.ts";
 import ProductInfo from "../components/ProductInfo.tsx";
 
 const Product = () => {

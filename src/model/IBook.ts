@@ -10,5 +10,6 @@ export interface IBook {
     publishedDate: string
     description: string
     publisher: string
+    authors: IAuthor[]
     image: IImage
 }

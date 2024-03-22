@@ -8,10 +8,13 @@ import {FaUserAstronaut} from "react-icons/fa";
 import {useGetFavoriteByUserQuery} from "../features/favorite/favoriteApiSlice.ts";
 import {setFavoriteItems} from "../features/favorite/favoriteSlice.ts";
 import {useRefreshTokenMutation} from "../features/auth/authApiSlice.ts";
+import {useGetUserQuery} from "../features/user/userApiSlice.ts";
+import {setUser} from "../features/user/userSlicer.ts";
 
 const Layout = () => {
     const [refresh] = useRefreshTokenMutation();
     const isAuth = useAppSelector(selectIsAuth)
+    const {data: user} = useGetUserQuery(undefined, {skip: !isAuth});
     const {data: wishlist, isLoading} = useGetFavoriteByUserQuery(undefined, {skip: !isAuth})
     const dispatch = useAppDispatch()
     useEffect(() => {
@@ -21,11 +24,18 @@ const Layout = () => {
             console.log(e)
         });
     }, [])
+
     useEffect(() => {
         if (wishlist) {
             dispatch(setFavoriteItems(wishlist))
         }
     }, [wishlist])
+
+    useEffect(() => {
+        if (user) {
+            dispatch(setUser(user))
+        }
+    }, [user])
 
     return (
         <>

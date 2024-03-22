@@ -4,12 +4,12 @@ interface CheckoutItemsProps {
     image: string;
     title: string;
     price: number;
-    author: string;
+    author: string | undefined;
 }
 const CheckoutItems:React.FC<CheckoutItemsProps> = ({image,title,price,author}) => {
     return (
         <div className="flex flex-col rounded-lg bg-white sm:flex-row">
-            <img className="m-2 h-24 w-28 rounded-md border object-cover object-center"
+            <img className="w-20 object-cover rounded"
                  src={"data:image/png;base64," + image}
                  alt=""/>
             <div className="flex w-full flex-col px-4 py-4">

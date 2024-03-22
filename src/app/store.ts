@@ -7,18 +7,18 @@ import {apiSlice} from "./api/apiSlice.ts";
 
 
 const rootReducer = combineReducers({
-    auth:authReducer,
-    userReducer,
-    cart:cartReducer,
-    favorite:favoriteReducer,
-    [apiSlice.reducerPath]:apiSlice.reducer
+    auth: authReducer,
+    user: userReducer,
+    cart: cartReducer,
+    favorite: favoriteReducer,
+    [apiSlice.reducerPath]: apiSlice.reducer
 
 })
 export const store = configureStore({
     reducer: rootReducer,
-    middleware:getDefaultMiddleware =>
+    middleware: getDefaultMiddleware =>
         getDefaultMiddleware().concat(apiSlice.middleware),
-    devTools:true
+    devTools: true
 
 })
 

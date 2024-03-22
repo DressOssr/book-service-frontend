@@ -3,7 +3,7 @@ import {RootState} from "../../app/store.ts";
 import {IUser} from "../../model/IUser.ts";
 
 
-const initialStateAuth: IUser = {
+const initialStateUser: IUser = {
     id: 0,
     email: "",
     roleId: 0
@@ -11,7 +11,7 @@ const initialStateAuth: IUser = {
 
 const userSlice = createSlice({
     name: "user",
-    initialState: initialStateAuth,
+    initialState: initialStateUser,
     reducers: {
         setUser: (state, action: PayloadAction<IUser>) => {
             const {id,email,roleId} = action.payload
@@ -30,4 +30,4 @@ const userSlice = createSlice({
 
 export const {setUser, clearState} = userSlice.actions
 export default userSlice.reducer
-export const selectCurrentUser = (state:RootState) => state.auth
+export const selectCurrentUserEmail = (state:RootState) => state.user.email

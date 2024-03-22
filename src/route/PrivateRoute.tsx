@@ -9,9 +9,10 @@ const PrivateRoute: FC = () => {
     const isAuth = useAppSelector(selectIsAuth);
     const isLoading = useAppSelector(selectIsLoading);
     const location = useLocation();
-    const dispatch = useAppDispatch()
+
     if (isLoading) return <div>Loading...</div>
     else {
+        console.log(isAuth)
         return (
             isAuth
                 ? <Outlet/>
