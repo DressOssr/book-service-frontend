@@ -1,9 +1,8 @@
-import {FC, useEffect} from "react";
+import {FC} from "react";
 import {Navigate, useLocation} from "react-router";
 import {Outlet} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
-import {selectIsAuth, selectIsLoading, setIsLoading} from "../features/auth/authSlice.ts";
-
+import {useAppSelector} from "../app/hooks.ts";
+import {selectIsAuth, selectIsLoading} from "../features/auth/authSlice.ts";
 
 const PrivateRoute: FC = () => {
     const isAuth = useAppSelector(selectIsAuth);
@@ -21,5 +20,4 @@ const PrivateRoute: FC = () => {
     }
 
 };
-
 export default PrivateRoute;

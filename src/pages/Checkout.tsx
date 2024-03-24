@@ -39,7 +39,7 @@ const Checkout = () => {
                     <p className="mt-8 text-lg font-medium">Shipping Methods</p>
                     <form className="mt-5 grid gap-6">
                         <div className="relative" onClick={() => handleShipping(10)}>
-                            <input className="peer hidden" id="radio_1" type="radio" name="radio" checked/>
+                            <input className="peer hidden" id="radio_1" type="radio" name="radio" value={10} checked/>
                             <span
                                 className="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
                             <label
@@ -52,7 +52,7 @@ const Checkout = () => {
                             </label>
                         </div>
                         <div className="relative" onClick={() => handleShipping(18)}>
-                            <input className="peer hidden" id="radio_2" type="radio" name="radio"/>
+                            <input className="peer hidden" id="radio_2" type="radio" value={18} name="radio"/>
                             <span
                                 className="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
                             <label
