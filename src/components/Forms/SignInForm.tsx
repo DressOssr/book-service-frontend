@@ -26,7 +26,6 @@ const SignInForm = () => {
             event.preventDefault();
             try {
                 const data = await login({password, email}).unwrap();
-                localStorage.setItem("token", data.accessToken);
                 dispatch(setCredentials(data));
                 navigate('/');
             } catch (error: any) {

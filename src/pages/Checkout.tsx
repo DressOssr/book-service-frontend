@@ -5,16 +5,35 @@ import CheckoutItems from "../components/CheckoutItems.tsx";
 import {MdOutlineMail} from "react-icons/md";
 import {PiCardholder} from "react-icons/pi";
 import {CiCreditCard1} from "react-icons/ci";
-import {useGetUserQuery} from "../features/user/userApiSlice.ts";
 import {selectCurrentUserEmail} from "../features/user/userSlicer.ts";
+import {OrderDto, useCreateOrderMutation} from "../features/order/ordeApiSlice.ts";
 
 const Checkout = () => {
     const cartItems = useAppSelector(selectCartItems);
+    const [createOrder, {isLoading}] = useCreateOrderMutation();
     const totalPrice = useAppSelector(selectCartTotalPrice);
     const [shipping, setShipping] = useState<number>(0);
     const userEmail = useAppSelector(selectCurrentUserEmail);
     const handleShipping = (price: number) => {
-        setShipping(price)
+        setShipping(price);
+    }
+    const handleSubmit = async () => {
+        //TODO VALIDATION CARD
+        const orderDto: OrderDto = {
+            subtotal: totalPrice,
+            shippingPrice: shipping,
+            books: cartItems.map((item) => {
+                return {
+                    bookId: item.book.id,
+                    quantity: item.quantity
+                }
+            })
+        }
+        try {
+            await createOrder(orderDto);
+        } catch (e) {
+            console.log(e)
+        }
     }
     return (
         <>
@@ -35,7 +54,6 @@ const Checkout = () => {
                         })
                         }
                     </div>
-
                     <p className="mt-8 text-lg font-medium">Shipping Methods</p>
                     <form className="mt-5 grid gap-6">
                         <div className="relative" onClick={() => handleShipping(10)}>
@@ -73,7 +91,8 @@ const Checkout = () => {
                         <label htmlFor="email" className="mt-4 mb-2 block text-sm font-medium">Email</label>
                         <div className="relative">
                             <input type="text" id="email" name="email"
-                                   className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                                   disabled
+                                   className="w-full disabled:bg-gray-200 rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                                    placeholder="your.email@gmail.com"
                                    value={userEmail}
                             />
@@ -95,7 +114,7 @@ const Checkout = () => {
                         <label htmlFor="card-no" className="mt-4 mb-2 block text-sm font-medium">Card Details</label>
                         <div className="flex">
                             <div className="relative w-7/12 flex-shrink-0">
-                                <input type="text" id="card-no" name="card-no"
+                                <input type="text" id="card-no" name="card-number"
                                        className="w-full rounded-md border border-gray-200 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                                        placeholder="xxxx-xxxx-xxxx-xxxx"/>
                                 <div
@@ -125,8 +144,11 @@ const Checkout = () => {
                             <p className="text-2xl font-semibold text-gray-900">${totalPrice + shipping}</p>
                         </div>
                     </div>
-                    <button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Place
-                        Order
+                    <button
+                        className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white"
+                        onClick={handleSubmit}
+                    >
+                        Place Order
                     </button>
                 </div>
             </div>
