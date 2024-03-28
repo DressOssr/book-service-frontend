@@ -12,6 +12,7 @@ import NoPage from "./NoPage.tsx";
 import User from "../pages/User.tsx";
 import FavoriteList from "./FavoriteList.tsx";
 import Checkout from "../pages/Checkout.tsx";
+import OrderList from "./Order/OrderList.tsx";
 
 const AppRouter: FC = () => {
     return (
@@ -27,6 +28,7 @@ const AppRouter: FC = () => {
                         <Route path="checkout" element={<Checkout/>}/>
                         <Route path="user" element={<User/>}>
                             <Route path='favorite' element={<FavoriteList/>}/>
+                            <Route path='order' element={<OrderList/>}/>
                         </Route>
                     </Route>
                     <Route path="*" element={<NoPage/>}/>

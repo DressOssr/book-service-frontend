@@ -5,5 +5,5 @@ export interface IOrder {
     subtotal: number;
     shippingPrice: number;
     userId: number;
-    OrderItems: IOrderItem[];
+    orderItems: IOrderItem[];
 }

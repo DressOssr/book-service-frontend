@@ -1,6 +1,7 @@
 import {apiSlice} from "../../app/api/apiSlice.ts";
 import {IUser} from "../../model/IUser.ts";
 import {IOrder} from "../../model/IOrder.ts";
+import {IOrderItem} from "../../model/IOrderItem.ts";
 
 
 export interface OrderDto {
@@ -17,7 +18,7 @@ export const orderApiSlice = apiSlice.injectEndpoints({
                 body: dto
             }),
         }),
-        getOrder:builder.mutation<void, IOrder>({
+        getOrder:builder.query<IOrder[], void>({
             query: () => ({
                 url: '/order',
                 method: 'GET'
@@ -29,5 +30,5 @@ export const orderApiSlice = apiSlice.injectEndpoints({
 
 export const {
     useCreateOrderMutation,
-    useGetOrderMutation,
+    useGetOrderQuery
 } = orderApiSlice

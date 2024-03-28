@@ -5,4 +5,5 @@ export interface IOrderItem {
     quantity: number;
     book:IBook;
     bookId: number;
+    orderId: number;
 }
