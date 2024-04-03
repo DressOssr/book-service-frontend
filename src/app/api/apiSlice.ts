@@ -19,7 +19,7 @@ const baseQuery = fetchBaseQuery({
 
 //@ts-ignore
 const baseQueryWithReAuth = async (args, api, extraOption) => {
-    api.dispatch(setIsLoading(true));
+
     let result = await baseQuery(args, api, extraOption);
     if (result?.error?.status === 401) {
         if (!mutex.isLocked()) {
@@ -44,7 +44,6 @@ const baseQueryWithReAuth = async (args, api, extraOption) => {
             result = await baseQuery(args, api, extraOption);
         }
     }
-    api.dispatch(setIsLoading(false));
     return result;
 }
 export const apiSlice = createApi({

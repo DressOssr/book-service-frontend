@@ -3,7 +3,7 @@ import React, {useEffect} from "react";
 import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
 import CartBadge from "./CartBadge.tsx";
 import {IoLogIn} from "react-icons/io5";
-import {selectIsAuth, setCredentials} from "../features/auth/authSlice.ts";
+import {selectIsAuth, setCredentials, setIsLoading} from "../features/auth/authSlice.ts";
 import {FaUserAstronaut} from "react-icons/fa";
 import {useGetFavoriteByUserQuery} from "../features/favorite/favoriteApiSlice.ts";
 import {setFavoriteItems} from "../features/favorite/favoriteSlice.ts";
@@ -18,10 +18,13 @@ const Layout = () => {
     const {data: wishlist, isLoading} = useGetFavoriteByUserQuery(undefined, {skip: !isAuth})
     const dispatch = useAppDispatch()
     useEffect(() => {
+        dispatch(setIsLoading(true));
         refresh().unwrap().then((data) => {
             dispatch(setCredentials(data))
         }).catch((e) => {
             console.log(e)
+        }).finally(() => {
+            dispatch(setIsLoading(false));
         });
     }, [])
 
