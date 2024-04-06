@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
-import {useDeleteByIdMutation, useGetUserCartItemQuery} from "../features/cart/cartApiSlice.ts";
+import {useDeleteByIdMutation, useGetUserCartItemQuery} from "../../features/cart/cartApiSlice.ts";
 import CartItem from "./CartItem.tsx";
-import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
-import {removeItem, selectCartTotalPrice, setCartItems} from "../features/cart/cartSlicer.ts";
-import {ICart} from "../model/ICart.ts";
+import {useAppDispatch, useAppSelector} from "../../app/hooks.ts";
+import {removeItem, selectCartTotalPrice, setCartItems} from "../../features/cart/cartSlicer.ts";
+import {ICart} from "../../model/ICart.ts";
 import {Link} from "react-router-dom";
 
 

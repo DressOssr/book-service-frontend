@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {FaCartShopping} from "react-icons/fa6";
-import Modal from './UI/Modal/Modal';
+import Modal from '../UI/Modal/Modal.tsx';
 import Cart from "./Cart.tsx";
-import CartModal from "./UI/Modal/CartModal.tsx";
-import {useGetFavoriteByUserQuery} from "../features/favorite/favoriteApiSlice.ts";
-import {useGetUserCartItemQuery} from "../features/cart/cartApiSlice.ts";
-import {selectCartItemsCount, setCartItems} from "../features/cart/cartSlicer.ts";
-import {setFavoriteItems} from "../features/favorite/favoriteSlice.ts";
-import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
-import {selectIsAuth} from "../features/auth/authSlice.ts";
+import CartModal from "../UI/Modal/CartModal.tsx";
+import {useGetFavoriteByUserQuery} from "../../features/favorite/favoriteApiSlice.ts";
+import {useGetUserCartItemQuery} from "../../features/cart/cartApiSlice.ts";
+import {selectCartItemsCount, setCartItems} from "../../features/cart/cartSlicer.ts";
+import {setFavoriteItems} from "../../features/favorite/favoriteSlice.ts";
+import {useAppDispatch, useAppSelector} from "../../app/hooks.ts";
+import {selectIsAuth} from "../../features/auth/authSlice.ts";
 
 
 const customStyles = {

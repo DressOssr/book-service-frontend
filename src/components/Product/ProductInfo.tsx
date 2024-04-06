@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {addCartItem} from "../features/cart/cartSlicer.ts";
-import {IImage} from "../model/IImage.ts";
-import {IAuthor} from "../model/IAuthor.ts";
-import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
-import {useAddToCartMutation} from "../features/cart/cartApiSlice.ts";
-import {ICategory} from "../model/ICategory.ts";
-import {selectCartItems} from "../features/cart/cartSlicer.ts";
-import {useAddFavoriteMutation, useCheckIfExistQuery} from "../features/favorite/favoriteApiSlice.ts";
-import {addFavoriteItem, selectFavoriteItems} from "../features/favorite/favoriteSlice.ts";
-import BookReviews from "./BookReviews.tsx";
-import {useGetReviewsQuery} from "../features/review/reviewApiSlice.ts";
+import {addCartItem} from "../../features/cart/cartSlicer.ts";
+import {IImage} from "../../model/IImage.ts";
+import {IAuthor} from "../../model/IAuthor.ts";
+import {useAppDispatch, useAppSelector} from "../../app/hooks.ts";
+import {useAddToCartMutation} from "../../features/cart/cartApiSlice.ts";
+import {ICategory} from "../../model/ICategory.ts";
+import {selectCartItems} from "../../features/cart/cartSlicer.ts";
+import {useAddFavoriteMutation, useCheckIfExistQuery} from "../../features/favorite/favoriteApiSlice.ts";
+import {addFavoriteItem, selectFavoriteItems} from "../../features/favorite/favoriteSlice.ts";
+import BookReviews from "../Review/BookReviews.tsx";
+import {useGetReviewsQuery} from "../../features/review/reviewApiSlice.ts";
 
 interface ProductInfoProps {
     id: number

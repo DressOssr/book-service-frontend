@@ -1,6 +1,5 @@
 import React from 'react';
-import StarRating from "./UI/StarRating/StarRating.tsx";
-import {data} from "autoprefixer";
+import StarRating from "../UI/StarRating/StarRating.tsx";
 
 interface UserReviewProps {
     rating: number;
@@ -13,7 +12,7 @@ const options = {
     month: "long",
     day: "numeric"
 };
-const UserReview:React.FC<UserReviewProps> = ({rating,text,date,author}) => {
+const UsersReview:React.FC<UserReviewProps> = ({rating,text,date,author}) => {
     const userDate = new Date(date);
     return (
         <>
@@ -38,4 +37,4 @@ const UserReview:React.FC<UserReviewProps> = ({rating,text,date,author}) => {
     );
 };
 
-export default UserReview;
+export default UsersReview;

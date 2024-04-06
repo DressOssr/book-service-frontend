@@ -1,5 +1,5 @@
 import React from 'react';
-import {useGetBookByIdQuery} from "../features/book/bookApiSlice.ts";
+import {useGetBookByIdQuery} from "../../features/book/bookApiSlice.ts";
 import {useNavigate} from "react-router-dom";
 
 interface FavoriteItemProps {

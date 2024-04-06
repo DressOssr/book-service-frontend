@@ -1,5 +1,5 @@
 import React from 'react';
-import {useAppDispatch} from "../app/hooks.ts";
+import {useAppDispatch} from "../../app/hooks.ts";
 
 interface CartItemProps {
     quantity: number;

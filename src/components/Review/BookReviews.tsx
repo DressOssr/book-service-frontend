@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import Modal from "./UI/Modal/Modal.tsx";
-import AddReviewForm from "./Forms/AddReviewForm.tsx";
-import StarRating from "./UI/StarRating/StarRating.tsx";
-import {FaStar} from "react-icons/fa";
-import {useGetReviewsQuery} from "../features/review/reviewApiSlice.ts";
-import UserReview from "./UserReview.tsx";
+import Modal from "../UI/Modal/Modal.tsx";
+import AddReviewForm from "../Forms/AddReviewForm.tsx";
+import {useGetReviewsQuery} from "../../features/review/reviewApiSlice.ts";
+import UsersReview from "./UsersReview.tsx";
 
 interface BookReviewProps {
     bookId: number;
@@ -37,7 +35,7 @@ const BookReviews: React.FC<BookReviewProps> = ({bookId}) => {
                     </div>
                     <div className="w-full flex justify-start items-start flex-col bg-gray-50 p-8">
                         {reviews?.map((review) => {
-                            return <UserReview
+                            return <UsersReview
                                 text={review.reviewText}
                                 author={review.name}
                                 date={review.createdAt}

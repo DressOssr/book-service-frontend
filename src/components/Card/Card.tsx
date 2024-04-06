@@ -1,5 +1,5 @@
 import React from 'react';
-import {IImage} from "../model/IImage.ts";
+import {IImage} from "../../model/IImage.ts";
 import {useNavigate} from "react-router-dom";
 
 interface CardProps {

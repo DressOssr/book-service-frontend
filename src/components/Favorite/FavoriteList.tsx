@@ -1,7 +1,7 @@
 import React from 'react';
-import {useGetFavoriteByUserQuery, useRemoveFromFavoriteMutation} from "../features/favorite/favoriteApiSlice.ts";
-import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
-import {removeFavorite, selectFavoriteItems} from "../features/favorite/favoriteSlice.ts";
+import {useGetFavoriteByUserQuery, useRemoveFromFavoriteMutation} from "../../features/favorite/favoriteApiSlice.ts";
+import {useAppDispatch, useAppSelector} from "../../app/hooks.ts";
+import {removeFavorite, selectFavoriteItems} from "../../features/favorite/favoriteSlice.ts";
 import FavoriteItem from "./FavoriteItem.tsx";
 
 const FavoriteList = () => {
