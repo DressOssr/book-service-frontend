@@ -1,5 +1,5 @@
 import React, {ReactElement} from 'react';
-import Cart from "../../Cart.tsx";
+import Cart from "../../Cart/Cart.tsx";
 import Modal from "./Modal.tsx";
 interface ModalProps {
     isOpen: boolean;

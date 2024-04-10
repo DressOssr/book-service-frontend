@@ -10,7 +10,7 @@ import Admin from "../pages/Admin.tsx";
 import Product from "../pages/Product.tsx";
 import NoPage from "./NoPage.tsx";
 import User from "../pages/User.tsx";
-import FavoriteList from "./FavoriteList.tsx";
+import FavoriteList from "./Favorite/FavoriteList.tsx";
 import Checkout from "../pages/Checkout.tsx";
 import OrderList from "./Order/OrderList.tsx";
 

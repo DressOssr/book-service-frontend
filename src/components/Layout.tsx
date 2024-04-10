@@ -1,7 +1,7 @@
 import {Outlet, Link} from "react-router-dom";
 import React, {useEffect} from "react";
 import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
-import CartBadge from "./CartBadge.tsx";
+import CartBadge from "./Cart/CartBadge.tsx";
 import {IoLogIn} from "react-icons/io5";
 import {selectIsAuth, setCredentials, setIsLoading} from "../features/auth/authSlice.ts";
 import {FaUserAstronaut} from "react-icons/fa";

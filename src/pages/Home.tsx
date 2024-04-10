@@ -2,7 +2,7 @@ import {useGetBooksQuery} from "../features/book/bookApiSlice.ts";
 import Modal from "../components/UI/Modal/Modal.tsx";
 import {useState} from "react";
 import {logOut} from "../features/auth/authSlice.ts";
-import Card from "../components/Card.tsx";
+import Card from "../components/Card/Card.tsx";
 
 const Home = () => {
     const {data, isLoading} = useGetBooksQuery()

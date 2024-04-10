@@ -1,7 +1,7 @@
 import React from 'react';
 import {useParams} from "react-router";
 import {useGetBookByIdQuery} from "../features/book/bookApiSlice.ts";
-import ProductInfo from "../components/ProductInfo.tsx";
+import ProductInfo from "../components/Product/ProductInfo.tsx";
 
 const Product = () => {
     const {id:bookId} = useParams();
