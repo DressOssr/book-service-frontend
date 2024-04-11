@@ -20,14 +20,10 @@ const userSlice = createSlice({
             state.roleId = roleId
 
         },
-        clearState: (state) => {
-            state.id = 0
-            state.email = ""
-            state.roleId = 0
-        }
+        clearUser:()=>initialStateUser
     }
 })
 
-export const {setUser, clearState} = userSlice.actions
+export const {setUser, clearUser} = userSlice.actions
 export default userSlice.reducer
 export const selectCurrentUserEmail = (state:RootState) => state.user.email

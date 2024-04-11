@@ -27,10 +27,7 @@ const cartSlicer = createSlice({
             state.cartItems = state.cartItems.filter(cart => cart.id !== action.payload)
             state.totalPrice = state.cartItems.reduce((acc, item) => acc + Number(item.book.price), 0)
         },
-        clearCart: (state) => {
-            state.cartItems = initialState.cartItems
-            state.totalPrice = initialState.totalPrice
-        }
+        clearCart: () => initialState
     }
 })
 export const {

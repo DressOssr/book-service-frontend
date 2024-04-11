@@ -2,6 +2,7 @@ import {apiSlice} from "../../app/api/apiSlice.ts";
 import {IBook} from "../../model/IBook.ts";
 import {IAuthor} from "../../model/IAuthor.ts";
 import {ICategory} from "../../model/ICategory.ts";
+import {IRole} from "../../model/IRole.ts";
 
 export const adminApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
@@ -28,8 +29,19 @@ export const adminApiSlice = apiSlice.injectEndpoints({
                 body:credentials,
                 formData:true
             })
+        }),
+        isAdmin: builder.query<IRole, number>({
+            query:(id)=>({
+                url:`/role/${id}`,
+                method:'GET',
+            })
         })
     })
 })
 
-export const {useCreateBookMutation,useCreateAuthorMutation,useCreateCategoryMutation} = adminApiSlice
+export const {
+    useCreateBookMutation,
+    useCreateAuthorMutation,
+    useCreateCategoryMutation,
+    useIsAdminQuery
+} = adminApiSlice

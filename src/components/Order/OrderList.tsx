@@ -11,7 +11,7 @@ const OrderList = () => {
                 return (
                     <div
                         key={order.id}
-                        className="border-b-2 m-2 p-2 mb-5"
+                        className="border-b-2"
                     >
                         <OrderItemList
                             order={order.orderItems}

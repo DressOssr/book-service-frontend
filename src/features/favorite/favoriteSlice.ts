@@ -23,9 +23,7 @@ const favoriteSlicer = createSlice({
         removeFavorite: (state, action: PayloadAction<number>) => {
             state.favoriteItems = state.favoriteItems.filter(favorite => favorite.id !== action.payload)
         },
-        clearFavorite: (state) => {
-            state.favoriteItems = initialState.favoriteItems
-        }
+        clearFavorite: () => initialState
     }
 })
 export const {

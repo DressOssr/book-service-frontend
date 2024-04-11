@@ -13,6 +13,7 @@ import User from "../pages/User.tsx";
 import FavoriteList from "./Favorite/FavoriteList.tsx";
 import Checkout from "../pages/Checkout.tsx";
 import OrderList from "./Order/OrderList.tsx";
+import AdminRoute from "../route/AdminRoute.tsx";
 
 const AppRouter: FC = () => {
     return (
@@ -24,7 +25,9 @@ const AppRouter: FC = () => {
                     <Route path="register" element={<Auth><SignUpForm/></Auth>}/>
                     <Route path="product/:id" element={<Product/>}/>
                     <Route element={<PrivateRoute/>}>
-                        <Route path="admin" element={<Admin/>}/>
+                        <Route element={<AdminRoute/>}>
+                            <Route path="admin" element={<Admin/>}/>
+                        </Route>
                         <Route path="checkout" element={<Checkout/>}/>
                         <Route path="user" element={<User/>}>
                             <Route path='favorite' element={<FavoriteList/>}/>
