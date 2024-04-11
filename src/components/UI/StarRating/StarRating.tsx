@@ -7,7 +7,6 @@ interface StarRatingProps {
 }
 const StarRating:React.FC<StarRatingProps> = ({setRating,rating,readingOnly}) => {
     const [hover, setHover] = useState<number >(0);
-
     const handleHover = (currentRating: number ) => {
         if(readingOnly ) return;
         setHover(currentRating);
@@ -21,7 +20,7 @@ const StarRating:React.FC<StarRatingProps> = ({setRating,rating,readingOnly}) =>
             {[...Array(5)].map((_,index) => {
                 const currentRating = index + 1;
                 return (
-                    <label>
+                    <label key={index}>
                         <input
                             type="radio"
                             name="rating"

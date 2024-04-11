@@ -10,14 +10,11 @@ const PrivateRoute: FC = () => {
     const location = useLocation();
 
     if (isLoading) return <div>Loading...</div>
-    else {
-        console.log(isAuth)
-        return (
-            isAuth
-                ? <Outlet/>
-                : <Navigate to="login" state={{form: location}} replace={true}/>
-        );
-    }
+    return (
+        isAuth
+            ? <Outlet/>
+            : <Navigate to="login" state={{form: location}} replace={true}/>
+    );
 
 };
 export default PrivateRoute;

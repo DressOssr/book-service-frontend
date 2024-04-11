@@ -13,7 +13,7 @@ const OrderItem:React.FC<OrderItemProps> = ({book,quantity}) => {
         navigate('/product/'+book.id);
     }
     return (
-        <div className=" flex items-center justify-between border-b-2 pb-2 mb-4">
+        <div className="flex items-center justify-between  pb-2 mb-4">
             <div className="flex items-center">
                 <img src={"data:image/png;base64," + book.image.buffer} alt="Product 1"
                      className="w-20 object-cover rounded"/>
@@ -23,7 +23,11 @@ const OrderItem:React.FC<OrderItemProps> = ({book,quantity}) => {
                     <p className="font-semibold">Quantity:{quantity}</p>
                 </div>
             </div>
-            <button>Add Reew</button>
+            <button
+                className="p-3 m-1 mx-3 rounded-xl border-2 border-gray-900 bg-black text-white text-sm hover:bg-gray-800 hover:text-gray-200"
+            >
+                Add Review
+            </button>
         </div>
     );
 };

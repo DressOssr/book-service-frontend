@@ -9,9 +9,11 @@ const OrderList = () => {
         <>
             {orders.map((order) => {
                 return (
-                    <div className="m-1  mb-5 bg-gray-100">
+                    <div
+                        key={order.id}
+                        className="border-b-2 m-2 p-2 mb-5"
+                    >
                         <OrderItemList
-                            key={order.id}
                             order={order.orderItems}
                         />
                     </div>

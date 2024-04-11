@@ -12,14 +12,10 @@ const BookReviews: React.FC<BookReviewProps> = ({bookId}) => {
     const {data: reviews, isLoading} = useGetReviewsQuery(bookId);
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [rating, setRating] = useState<number>(3);
-
-    useEffect(() => {
-        console.log(reviews)
-    }, [reviews]);
     const closeModal = () => {
         setIsOpen(!isOpen);
     }
-    if (isLoading) return <p>Loading...</p>
+    if (isLoading || !reviews) return <p>Loading...</p>
     return (
         <>
             <div className="px-4 md:px-6 2xl:px-0 2xl:container 2xl:mx-auto">
@@ -34,8 +30,9 @@ const BookReviews: React.FC<BookReviewProps> = ({bookId}) => {
                         </button>
                     </div>
                     <div className="w-full flex justify-start items-start flex-col bg-gray-50 p-8">
-                        {reviews?.map((review) => {
+                        {reviews.map((review) => {
                             return <UsersReview
+                                key={review.id}
                                 text={review.reviewText}
                                 author={review.name}
                                 date={review.createdAt}
