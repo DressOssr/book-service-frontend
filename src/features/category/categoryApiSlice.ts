@@ -8,7 +8,8 @@ export const categoryApiSlice = apiSlice.injectEndpoints({
             query: () => ({
                 url: '/category',
                 method: 'GET',
-            })
+            }),
+            providesTags: ['AddCategory']
         })
     })
 })

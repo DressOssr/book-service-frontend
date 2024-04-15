@@ -1,9 +1,15 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {RootState} from "../../app/store.ts";
 import {IAuth} from "../../model/IAuth.ts";
-const initialStateAuth = {
+
+ interface IAuthState{
+    accessToken: string,
+    isAuth: boolean | null,
+    isLoading: boolean
+}
+const initialStateAuth:IAuthState = {
     accessToken: "",
-    isAuth: false,
+    isAuth: null,
     isLoading: false
 }
 const authSlice = createSlice({
@@ -15,16 +21,19 @@ const authSlice = createSlice({
         },
         setCredentials: (state, action: PayloadAction<IAuth>) => {
             state.accessToken = action.payload.accessToken
-            state.isAuth = true
         },
-        logOut: () => initialStateAuth,
+        setIsAuth: (state, action: PayloadAction<boolean>) => {
+            state.isAuth = action.payload
+        },
+        logout: () => initialStateAuth,
     }
 })
 
 export const {
     setCredentials,
-    logOut,
-    setIsLoading
+    logout,
+    setIsLoading,
+    setIsAuth
 } = authSlice.actions
 export default authSlice.reducer
 export const selectCurrentAccessToken = (state: RootState) => state.auth.accessToken

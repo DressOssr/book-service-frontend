@@ -25,13 +25,15 @@ export const authApiSlice = apiSlice.injectEndpoints({
             query:()=>({
                 url:'/auth/refresh',
                 method:'GET'
-            })
+            }),
+
         }),
         logout:builder.mutation<void,void>({
             query:()=>({
                 url:'/auth/logout',
                 method:'GET'
             }),
+            invalidatesTags:['Logout']
         }),
     })
 })

@@ -13,6 +13,7 @@ export const adminApiSlice = apiSlice.injectEndpoints({
                 body: credentials,
                 formData: true
             }),
+
         }),
         createAuthor:builder.mutation<IAuthor,FormData>({
             query:(credentials:FormData)=>({
@@ -20,7 +21,8 @@ export const adminApiSlice = apiSlice.injectEndpoints({
                 method:'POST',
                 body:credentials,
                 formData:true
-            })
+            }),
+            invalidatesTags:['AddAuthor']
         }),
         createCategory:builder.mutation<ICategory,FormData>({
             query:(credentials:FormData)=>({
@@ -28,7 +30,8 @@ export const adminApiSlice = apiSlice.injectEndpoints({
                 method:'POST',
                 body:credentials,
                 formData:true
-            })
+            }),
+            invalidatesTags:['AddCategory']
         }),
         isAdmin: builder.query<IRole, number>({
             query:(id)=>({

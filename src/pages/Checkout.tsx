@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {selectCartItems, selectCartTotalPrice} from "../features/cart/cartSlicer.ts";
-import {useAppSelector} from "../app/hooks.ts";
+import {clearCart, selectCartItems, selectCartTotalPrice} from "../features/cart/cartSlicer.ts";
+import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
 import CheckoutItems from "../components/Checkout/CheckoutItems.tsx";
 import {MdOutlineMail} from "react-icons/md";
 import {PiCardholder} from "react-icons/pi";
@@ -10,6 +10,7 @@ import {OrderDto, useCreateOrderMutation} from "../features/order/ordeApiSlice.t
 import ShippingMethod from "../components/Checkout/ShippingMethod.tsx";
 import PaymentDetails from "../components/Checkout/PaymentDetails.tsx";
 import CheckoutList from "../components/Checkout/CheckoutList.tsx";
+import {ICart} from "../model/ICart.ts";
 
 const Checkout = () => {
     const cartItems = useAppSelector(selectCartItems);
@@ -17,6 +18,7 @@ const Checkout = () => {
     const totalPrice = useAppSelector(selectCartTotalPrice);
     const [shipping, setShipping] = useState<number>(0);
     const userEmail = useAppSelector(selectCurrentUserEmail);
+    const dispatch = useAppDispatch();
     const handleShipping = (price: number) => {
         setShipping(price);
     }
@@ -25,7 +27,7 @@ const Checkout = () => {
         const orderDto: OrderDto = {
             subtotal: totalPrice,
             shippingPrice: shipping,
-            books: cartItems.map((item) => {
+            books: cartItems.map((item:ICart) => {
                 return {
                     bookId: item.book.id,
                     quantity: item.quantity
@@ -34,6 +36,7 @@ const Checkout = () => {
         }
         try {
             await createOrder(orderDto);
+            dispatch(clearCart());
         } catch (e) {
             console.log(e)
         }

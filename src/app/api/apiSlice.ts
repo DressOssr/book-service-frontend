@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery,} from "@reduxjs/toolkit/query/react";
-import {logOut, setCredentials, setIsLoading} from "../../features/auth/authSlice.js";
+import {logout, setCredentials} from "../../features/auth/authSlice.js";
 import {RootState} from "../store.ts";
 import {Mutex} from "async-mutex";
 
@@ -33,7 +33,7 @@ const baseQueryWithReAuth = async (args, api, extraOption) => {
                     result = await baseQuery(args, api, extraOption);
                 } else {
                     console.log("Log out");
-                    api.dispatch(logOut());
+                    api.dispatch(logout());
                 }
             } finally {
                 console.log('release')
@@ -48,6 +48,9 @@ const baseQueryWithReAuth = async (args, api, extraOption) => {
 }
 export const apiSlice = createApi({
     baseQuery: baseQueryWithReAuth,
-    endpoints: () => ({}),
-    tagTypes: ['AuthLogout',"Cart","Review"]
+    endpoints: () => ({
+
+    }),
+
+    tagTypes: ['AuthLogout',"Cart","Review","Logout","AddAuthor","AddCategory"]
 });

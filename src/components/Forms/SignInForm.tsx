@@ -2,7 +2,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {useAppDispatch} from "../../app/hooks.ts";
 import {useLoginMutation} from "../../features/auth/authApiSlice.ts";
-import {setCredentials} from "../../features/auth/authSlice.ts";
+import {setCredentials, setIsAuth} from "../../features/auth/authSlice.ts";
 import Spinner from "../UI/Spinner.tsx";
 
 const SignInForm = () => {
@@ -13,11 +13,6 @@ const SignInForm = () => {
         const dispatch = useAppDispatch();
         const [login, {isLoading}] = useLoginMutation()
         const navigate = useNavigate();
-        // const userRef = useRef<HTMLInputElement | null>(null); //TODO
-        // useEffect(() => {
-        //     if (userRef.current)
-        //         userRef.current?.focus();
-        // }, [])
 
         useEffect(() => {
             setErrorMessage('')
@@ -27,6 +22,7 @@ const SignInForm = () => {
             try {
                 const data = await login({password, email}).unwrap();
                 dispatch(setCredentials(data));
+                dispatch(setIsAuth(true));
                 navigate('/');
             } catch (error: any) {
                 if (error.data)

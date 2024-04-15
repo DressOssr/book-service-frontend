@@ -4,6 +4,7 @@ import userReducer from "../features/user/userSlicer.ts"
 import cartReducer from "../features/cart/cartSlicer.ts"
 import favoriteReducer from "../features/favorite/favoriteSlice.ts"
 import {apiSlice} from "./api/apiSlice.ts";
+import {logout} from "../features/auth/authSlice.ts";
 
 
 const rootReducer = combineReducers({

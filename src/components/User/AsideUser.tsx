@@ -4,26 +4,28 @@ import {MdFavoriteBorder} from "react-icons/md";
 import {IoMdLogOut} from "react-icons/io";
 import {useLogoutMutation} from "../../features/auth/authApiSlice.ts";
 import {useAppDispatch, useAppSelector} from "../../app/hooks.ts";
-import {logOut} from "../../features/auth/authSlice.ts";
+import {logout} from "../../features/auth/authSlice.ts";
 import {clearFavorite} from "../../features/favorite/favoriteSlice.ts";
 import {clearCart} from "../../features/cart/cartSlicer.ts";
 import {useIsAdminQuery} from "../../features/admin/adminApiSlice.ts";
 import useIsAdmin from "../../hooks/useIsAdmin.ts";
 import {clearUser} from "../../features/user/userSlicer.ts";
+import {apiSlice} from "../../app/api/apiSlice.ts";
 
 const AsideUser = () => {
-    const [logout] = useLogoutMutation();
+    const [logoutDb] = useLogoutMutation();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const isAdmin = useIsAdmin();
     const handleLogout = async () => {
         try {
-            await logout();
-            dispatch(logOut());
+            await logoutDb();
+            dispatch(logout());
             dispatch(clearFavorite());
             dispatch(clearCart());
             dispatch(clearUser());
             navigate('/');
+            dispatch(apiSlice.util.resetApiState());
         } catch (e) {
             console.log(e)
         }
@@ -77,7 +79,7 @@ const AsideUser = () => {
 
                     <li>
                         <a onClick={handleLogout}
-                           className="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+                           className="cursor-pointer flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
                             <IoMdLogOut
                                 className='flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900'/>
                             <span className="flex-1 ms-3 whitespace-nowrap">Logout</span>
