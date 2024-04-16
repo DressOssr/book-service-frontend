@@ -14,8 +14,14 @@ import FavoriteList from "./Favorite/FavoriteList.tsx";
 import Checkout from "../pages/Checkout.tsx";
 import OrderList from "./Order/OrderList.tsx";
 import AdminRoute from "../route/AdminRoute.tsx";
+import AddBookFrom from "./Forms/AddBookForm.tsx";
+import {useGetCategoryQuery} from "../features/category/categoryApiSlice.ts";
+import {useGetAuthorQuery} from "../features/author/authorApiSlice.ts";
+import AddBook from "./Admin/AddBook.tsx";
+import BookList from "./Admin/BookList.tsx";
 
 const AppRouter: FC = () => {
+
     return (
         <>
             <Routes>
@@ -25,11 +31,15 @@ const AppRouter: FC = () => {
                     <Route path="register" element={<Auth><SignUpForm/></Auth>}/>
                     <Route path="product/:id" element={<Product/>}/>
                     <Route element={<PrivateRoute/>}>
-                        <Route element={<AdminRoute/>}>
-                            <Route path="admin" element={<Admin/>}/>
-                        </Route>
                         <Route path="checkout" element={<Checkout/>}/>
                         <Route path="user" element={<User/>}>
+                            <Route element={<AdminRoute/>}>
+                                <Route path="admin" element={<Admin/>}>
+                                    <Route path="add-book" element={<AddBook/>}/>
+                                    <Route path="user-list" element={<AddBook/>}/>
+                                    <Route path="book-list" element={<BookList/>}/>
+                                </Route>
+                            </Route>
                             <Route path='favorite' element={<FavoriteList/>}/>
                             <Route path='order' element={<OrderList/>}/>
                         </Route>
