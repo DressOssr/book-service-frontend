@@ -22,14 +22,11 @@ const Layout = () => {
         refresh().unwrap().then((data) => {
             dispatch(setCredentials(data));
             dispatch(setIsAuth(true));
-
         }).catch((e) => {
             dispatch(setIsAuth(false));
             console.log(e);
-
         }).finally(() => {
             dispatch(setIsLoading(false));
-
         });
     }, [])
 
@@ -69,7 +66,6 @@ const Layout = () => {
                                     <IoLogIn size={35}/>
                                 </Link>
                             }
-
                         </div>
                     </div>
                 </nav>

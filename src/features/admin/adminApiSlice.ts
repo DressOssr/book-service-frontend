@@ -3,7 +3,12 @@ import {IBook} from "../../model/IBook.ts";
 import {IAuthor} from "../../model/IAuthor.ts";
 import {ICategory} from "../../model/ICategory.ts";
 import {IRole} from "../../model/IRole.ts";
+import {IUser} from "../../model/IUser.ts";
 
+
+interface UserTable extends IUser{
+    role:IRole
+}
 export const adminApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         createBook: builder.mutation<IBook,FormData>({
@@ -38,6 +43,12 @@ export const adminApiSlice = apiSlice.injectEndpoints({
                 url:`/role/${id}`,
                 method:'GET',
             })
+        }),
+        getUsers: builder.query<IUser[],void>({
+            query:()=>({
+                url:`/users/all`,
+                method:'GET',
+            })
         })
     })
 })
@@ -46,5 +57,6 @@ export const {
     useCreateBookMutation,
     useCreateAuthorMutation,
     useCreateCategoryMutation,
-    useIsAdminQuery
+    useIsAdminQuery,
+    useGetUsersQuery
 } = adminApiSlice

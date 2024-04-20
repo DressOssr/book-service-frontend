@@ -19,6 +19,7 @@ import {useGetCategoryQuery} from "../features/category/categoryApiSlice.ts";
 import {useGetAuthorQuery} from "../features/author/authorApiSlice.ts";
 import AddBook from "./Admin/AddBook.tsx";
 import BookList from "./Admin/BookList.tsx";
+import UserList from "./Admin/UserList.tsx";
 
 const AppRouter: FC = () => {
 
@@ -36,7 +37,7 @@ const AppRouter: FC = () => {
                             <Route element={<AdminRoute/>}>
                                 <Route path="admin" element={<Admin/>}>
                                     <Route path="add-book" element={<AddBook/>}/>
-                                    <Route path="user-list" element={<AddBook/>}/>
+                                    <Route path="user-list" element={<UserList/>}/>
                                     <Route path="book-list" element={<BookList/>}/>
                                 </Route>
                             </Route>
