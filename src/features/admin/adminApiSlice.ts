@@ -49,6 +49,12 @@ export const adminApiSlice = apiSlice.injectEndpoints({
                 url:`/users/all`,
                 method:'GET',
             })
+        }),
+        getRoles: builder.query<IRole[],void>({
+            query:()=>({
+                url:`/role`,
+                method:'GET',
+            })
         })
     })
 })
@@ -58,5 +64,6 @@ export const {
     useCreateAuthorMutation,
     useCreateCategoryMutation,
     useIsAdminQuery,
-    useGetUsersQuery
+    useGetUsersQuery,
+    useGetRolesQuery
 } = adminApiSlice

@@ -1,14 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useGetUsersQuery} from "../../features/admin/adminApiSlice.ts";
-import {
-    SortingState,
-    createColumnHelper,
-    flexRender,
-    getCoreRowModel,
-    useReactTable,
-} from "@tanstack/react-table";
-import {IUser} from "../../model/IUser.ts";
-import UserTable from "./User/UserTable.tsx";
+
+import UserTable from "./Table/UserTable.tsx";
 
 
 const UserList = () => {
