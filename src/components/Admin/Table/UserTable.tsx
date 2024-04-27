@@ -3,8 +3,9 @@ import {IUser} from "../../../model/IUser.ts";
 import {createColumnHelper, flexRender, getCoreRowModel, useReactTable} from "@tanstack/react-table";
 import RoleCell from "./Cell/RoleCell.tsx";
 import {logout} from "../../../features/auth/authSlice.ts";
+import {useEditRoleMutation} from "../../../features/admin/adminApiSlice.ts";
 
-const columHelper = createColumnHelper<IUser >()
+const columHelper = createColumnHelper<IUser>()
 const columns = [
     columHelper.accessor("id", {
         header: () => 'ID',
@@ -25,24 +26,16 @@ interface UserTableProps {
 }
 
 const UserTable: React.FC<UserTableProps> = ({fetchUsers}) => {
-    const [users, setUsers] = useState(fetchUsers);
+    const [editRoleMutation] = useEditRoleMutation();
     const table = useReactTable({
-        data: users,
+        data: fetchUsers,
         columns: columns,
         debugTable: true,
         getCoreRowModel: getCoreRowModel(),
         meta: {
-            updateData: (rowIndex: number, columnId: number, value: number) => {
-                setUsers((prev) => {
-                    return prev.map((row, index) =>
-                        index === rowIndex
-                            ? {
-                                ...prev[rowIndex],
-                                [columnId]: value,
-                            }
-                            : row
-                    )
-                })
+            updateData: (rowIndex: number, value: number) => {
+                //TODO ADD ERROR HANDLING
+                editRoleMutation({userId: fetchUsers[rowIndex].id, roleId: value})
             }
         }
     })

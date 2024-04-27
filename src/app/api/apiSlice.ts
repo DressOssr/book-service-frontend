@@ -52,5 +52,5 @@ export const apiSlice = createApi({
 
     }),
 
-    tagTypes: ['AuthLogout',"Cart","Review","Logout","AddAuthor","AddCategory"]
+    tagTypes: ['AuthLogout',"Cart","Review","Logout","AddAuthor","AddCategory","EditRole"]
 });

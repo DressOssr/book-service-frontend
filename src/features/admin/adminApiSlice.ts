@@ -9,6 +9,10 @@ import {IUser} from "../../model/IUser.ts";
 interface UserTable extends IUser{
     role:IRole
 }
+interface UserRoleEdit{
+    userId:number,
+    roleId:number
+}
 export const adminApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         createBook: builder.mutation<IBook,FormData>({
@@ -55,6 +59,13 @@ export const adminApiSlice = apiSlice.injectEndpoints({
                 url:`/role`,
                 method:'GET',
             })
+        }),
+        editRole: builder.mutation<boolean, UserRoleEdit >({
+            query:(dto)=>({
+                url:`/users/role`,
+                method:'PUT',
+                body:dto
+            })
         })
     })
 })
@@ -65,5 +76,6 @@ export const {
     useCreateCategoryMutation,
     useIsAdminQuery,
     useGetUsersQuery,
-    useGetRolesQuery
+    useGetRolesQuery,
+    useEditRoleMutation
 } = adminApiSlice
