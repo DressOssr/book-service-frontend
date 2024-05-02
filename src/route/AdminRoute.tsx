@@ -8,15 +8,11 @@ import useIsAdmin from "../hooks/useIsAdmin.ts";
 const AdminRoute: FC = () => {
     const location = useLocation();
     const isAdmin = useIsAdmin();
-
-    if (isAdmin === null) return <div>Loading...</div>
+    if (isAdmin == null) return <div>Loading...</div>
     return (
         isAdmin
             ? <Outlet/>
-            : (
-                console.log( isAdmin),
-                <Navigate to="/" state={{form: location}} replace={true}/>
-            )
+            :  <Navigate to="/" state={{form: location}} replace={true}/>
     );
 
 };
