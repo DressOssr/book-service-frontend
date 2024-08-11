@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Modal from "../UI/Modal/Modal.tsx";
 import AddReviewForm from "../Forms/AddReviewForm.tsx";
 import {useGetReviewsQuery} from "../../features/review/reviewApiSlice.ts";
@@ -11,7 +11,6 @@ interface BookReviewProps {
 const BookReviews: React.FC<BookReviewProps> = ({bookId}) => {
     const {data: reviews, isLoading} = useGetReviewsQuery(bookId);
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [rating, setRating] = useState<number>(3);
     const closeModal = () => {
         setIsOpen(!isOpen);
     }
